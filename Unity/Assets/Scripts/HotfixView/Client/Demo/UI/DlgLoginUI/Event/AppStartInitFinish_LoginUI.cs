@@ -4,10 +4,11 @@ namespace ET.Client;
 /// app启动初始化完成_创建登录UI
 /// </summary>
 [Event(SceneType.ProjectS)]
-public class AppStartInitFinish_CreateInitInterfaceUI: AEvent<Scene, AppStartInitFinish>
+public class AppStartInitFinish_LoginUI: AEvent<Scene, AppStartInitFinish>
 {
     protected override async ETTask Run(Scene root, AppStartInitFinish a)
     {
-        await root.GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_InitialInterface);
+        //打开登录界面
+        await root.GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_LoginUI);
     }
 }
