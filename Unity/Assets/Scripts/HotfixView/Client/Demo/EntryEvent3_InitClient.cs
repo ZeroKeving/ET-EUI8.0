@@ -4,6 +4,9 @@ using System.IO;
 
 namespace ET.Client
 {
+    /// <summary>
+    /// 初始化客户端进入事件
+    /// </summary>
     [Event(SceneType.Main)]
     public class EntryEvent3_InitClient: AEvent<Scene, EntryEvent3>
     {

@@ -207,6 +207,12 @@ namespace ET
             await self.WaitAsync(1, cancellationToken);
         }
 
+        /// <summary>
+        /// 异步等待函数，时间ms
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="time"></param>
+        /// <param name="cancellationToken"></param>
         public static async ETTask WaitAsync(this TimerComponent self, long time, ETCancellationToken cancellationToken = null)
         {
             if (time == 0)
@@ -298,6 +304,9 @@ namespace ET
         }
     }
 
+    /// <summary>
+    /// 定时器组件
+    /// </summary>
     [ComponentOf(typeof(Scene))]
     public class TimerComponent: Entity, IAwake, IUpdate
     {

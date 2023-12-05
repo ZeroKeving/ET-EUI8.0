@@ -10,6 +10,7 @@ namespace ET
 		{
 			try
 			{
+				//设置当前程序集的作用域的异常回调函数
 				AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
 				{
 					Log.Error(e.ExceptionObject.ToString());

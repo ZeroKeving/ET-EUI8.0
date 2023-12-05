@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace ET
 {
+	/// <summary>
+	/// Unity启动后运行的初始化
+	/// </summary>
 	public class Init: MonoBehaviour
 	{
 		private void Start()
@@ -13,8 +16,10 @@ namespace ET
 		
 		private async ETTask StartAsync()
 		{
+			//将该初始化对象Global设为切换场景不销毁状态
 			DontDestroyOnLoad(gameObject);
 			
+			//设置程序集所在的作用域的异常处理回调
 			AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
 			{
 				Log.Error(e.ExceptionObject.ToString());

@@ -1,5 +1,8 @@
 namespace ET
 {
+    /// <summary>
+    /// 初始化客户端进入事件
+    /// </summary>
     [Event(SceneType.Main)]
     public class EntryEvent1_InitShare: AEvent<Scene, EntryEvent1>
     {

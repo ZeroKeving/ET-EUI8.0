@@ -32,6 +32,8 @@ namespace ET
 		LockStepView = 1L << 33,
 		DemoView = 1L << 34,
 		NetClient = 1L << 35,
+		
+		ProjectS = 1L << 40,
 
 		All = long.MaxValue,
 	}

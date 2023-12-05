@@ -16,6 +16,9 @@
     {
     }
 
+    /// <summary>
+    /// App初始化完成
+    /// </summary>
     public struct AppStartInitFinish
     {
     }
@@ -32,4 +35,5 @@
     {
         public Unit Unit;
     }
+
 }

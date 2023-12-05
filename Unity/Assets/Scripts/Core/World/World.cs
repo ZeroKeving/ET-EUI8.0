@@ -47,6 +47,7 @@ namespace ET
             }
         }
 
+        //帮助创建单例
         public T AddSingleton<T>() where T : ASingleton, ISingletonAwake, new()
         {
             T singleton = new();

@@ -20,8 +20,10 @@ namespace ET
 
         public async ETTask DownloadAsync()
         {
+            //判断是否是不在编辑器环境下
             if (!Define.IsEditor)
             {
+                //加载热更新代码
                 this.dlls = await ResourcesComponent.Instance.LoadAllAssetsAsync<TextAsset>($"Assets/Bundles/Code/Model.dll.bytes");
                 this.aotDlls = await ResourcesComponent.Instance.LoadAllAssetsAsync<TextAsset>($"Assets/Bundles/AotDlls/mscorlib.dll.bytes");
             }
@@ -75,20 +77,23 @@ namespace ET
                 }
                 else
                 {
+                    //获取热更新代码集地址
                     assBytes = File.ReadAllBytes(Path.Combine(Define.CodeDir, "Model.dll.bytes"));
                     pdbBytes = File.ReadAllBytes(Path.Combine(Define.CodeDir, "Model.pdb.bytes"));
                 }
-
+                
+                //加载Model代码文件
                 this.assembly = Assembly.Load(assBytes, pdbBytes);
 
                 Assembly hotfixAssembly = this.LoadHotfix();
 
                 World.Instance.AddSingleton<CodeTypes, Assembly[]>(new[] { typeof(World).Assembly, typeof(Init).Assembly, this.assembly, hotfixAssembly });
             }
-
+            
+            //通过反射来调用Model程序集中的ET.Entry类上的Start函数
             IStaticMethod start = new StaticMethod(this.assembly, "ET.Entry", "Start");
             start.Run();
-        }
+        } 
 
         private Assembly LoadHotfix()
         {
@@ -105,10 +110,12 @@ namespace ET
             }
             else
             {
+                //获取热更新代码集地址
                 assBytes = File.ReadAllBytes(Path.Combine(Define.CodeDir, "Hotfix.dll.bytes"));
                 pdbBytes = File.ReadAllBytes(Path.Combine(Define.CodeDir, "Hotfix.pdb.bytes"));
             }
-
+            
+            //加载Hotfix代码文件
             Assembly hotfixAssembly = Assembly.Load(assBytes, pdbBytes);
             return hotfixAssembly;
         }

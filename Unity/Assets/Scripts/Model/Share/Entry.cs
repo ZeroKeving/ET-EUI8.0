@@ -30,11 +30,13 @@ namespace ET
         
         private static async ETTask StartAsync()
         {
+            //windows平台相关的精度设置
             WinPeriod.Init();
 
             // 注册Mongo type
             MongoRegister.Init();
 
+            //创建单例类
             World.Instance.AddSingleton<IdGenerater>();
             World.Instance.AddSingleton<OpcodeType>();
             World.Instance.AddSingleton<ObjectPool>();
