@@ -13,7 +13,7 @@ namespace ET.Client
 
 		public static void RegisterUIEvent(this DlgLSLobby self)
 		{
-		   self.View.EMatchButton.AddListenerAsync(self.EnterMap);
+		   self.View.EMatchButton.AddListenerAsync(self.EnterMap,self.Root());
 		   self.View.EReplayButton.AddListener(self.Replay);
 		}
 

@@ -4,6 +4,9 @@ using System.Net.Sockets;
 
 namespace ET.Client
 {
+    /// <summary>
+    /// Main纤程与NetClient纤程通讯的登录消息处理
+    /// </summary>
     [MessageHandler(SceneType.NetClient)]
     public class Main2NetClient_LoginHandler: MessageHandler<Scene, Main2NetClient_Login, NetClient2Main_Login>
     {
@@ -12,7 +15,7 @@ namespace ET.Client
             string account = request.Account;
             string password = request.Password;
             // 创建一个ETModel层的Session
-            root.RemoveComponent<RouterAddressComponent>();
+            root.RemoveComponent<RouterAddressComponent>();//移除路由节点地址组件，保证每次登录获取新的路由节点地址
             // 获取路由跟realmDispatcher地址
             RouterAddressComponent routerAddressComponent = root.GetComponent<RouterAddressComponent>();
             if (routerAddressComponent == null)

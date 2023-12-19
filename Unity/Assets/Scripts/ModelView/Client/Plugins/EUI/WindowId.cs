@@ -13,5 +13,6 @@ namespace ET.Client
 		WindowID_LSRoom,
 		WindowID_InitialInterface,//初始化界面
 		WindowID_LoginUI,//登录界面
+		WindowID_Await,
 	}
 }
