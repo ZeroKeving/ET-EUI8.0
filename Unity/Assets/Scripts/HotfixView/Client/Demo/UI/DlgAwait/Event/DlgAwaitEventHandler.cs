@@ -7,7 +7,7 @@
 
 		public void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.windowType = UIWindowType.Normal; 
+		  uiBaseWindow.windowType = UIWindowType.Other; 
 		}
 
 		public void OnInitComponent(UIBaseWindow uiBaseWindow)

@@ -9,6 +9,14 @@ namespace ET.Server
 	{
 		protected override async ETTask Run(Session session, C2R_Login request, R2C_Login response)
 		{
+			if (string.IsNullOrEmpty(request.Account)||string.IsNullOrEmpty(request.Password))//判断账号密码是否为空
+			{
+				response.Error = ErrorCode.ERR_LoginInfoNull;//返回登录信息错误码
+				CloseSession(session).Coroutine();//延迟1秒后断开连接
+				return;
+			}
+			
+			
 			// 随机分配一个Gate
 			StartSceneConfig config = RealmGateAddressHelper.GetGate(session.Zone(), request.Account);
 			Log.Debug($"gate address: {config}");

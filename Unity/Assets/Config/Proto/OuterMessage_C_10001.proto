@@ -234,20 +234,38 @@ message G2C_Benchmark // ISessionResponse
 	string Message = 3;
 }
 
-//ResponseType R2C_LoginAccout
-message C2R_LoginAccount // ISessionRequest
+//ResponseType R2C_LoginGame
+message C2R_LoginGame // ISessionRequest
 {
 	int32 RpcId = 1;//如果要服务器回复这个消息就必须要加，且message后面的备注也需要加ISessionRequest，如果服务器不需要回复则不用加这个变量
-	string AccountName = 2;//账号
+	string Account = 2;//账号
 	string Password = 3;//密码
 }
 
-message R2C_LoginAccout // ISessionResponse
+message R2C_LoginGame // ISessionResponse
 {
+
 	int32 RpcId = 1;//message后面的备注标识表示服务器返回消息，必须要存在
 	int32 Error = 2;//必须要存在
 	string Message = 3;//必须要存在
 
-	string Token = 4;//登录标志令牌
-	int64 AccountId = 5;//登录Id
+	string Address = 4;
+	int64 Key = 5;
+	int64 GateId = 6;
+}
+
+//ResponseType G2C_LoginGameGate
+message C2G_LoginGameGate // ISessionRequest
+{
+	int32 RpcId = 1;
+	int64 Key = 2;  // 帐号
+	int64 GateId = 3;
+}
+
+message G2C_LoginGameGate // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 PlayerId = 4;
 }

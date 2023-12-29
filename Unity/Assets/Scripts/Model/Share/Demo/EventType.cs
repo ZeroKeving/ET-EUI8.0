@@ -36,4 +36,26 @@
         public Unit Unit;
     }
 
+    /// <summary>
+    /// 创建一个错误信息弹窗事件
+    /// </summary>
+    public struct CreateErrorWindow
+    {
+        public int ErrorCode;
+    }
+    
+    /// <summary>
+    /// 创建一个提示信息弹窗事件
+    /// </summary>
+    public struct CreateHintWindow
+    {
+        public int HintCode;
+    }
+    
+    /// <summary>
+    /// 登录游戏完成
+    /// </summary>
+    public struct LoginGameFinish
+    {
+    }
 }

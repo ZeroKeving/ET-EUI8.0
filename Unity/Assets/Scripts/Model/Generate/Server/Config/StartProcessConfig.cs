@@ -62,6 +62,8 @@ namespace ET
 		public int MachineId { get; set; }
 		/// <summary>外网端口</summary>
 		public int Port { get; set; }
+		/// <summary>程序名称</summary>
+		public string AppName { get; set; }
 
 	}
 }

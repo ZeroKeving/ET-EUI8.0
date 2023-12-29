@@ -11,6 +11,7 @@ namespace ET.Client
     /// 登录UI界面
     /// </summary>
     [FriendOf(typeof (DlgLoginUI))]
+    [FriendOf(typeof (ShowWindowData))]
     [EntitySystemOf(typeof (DlgLoginUI))]
     public static partial class DlgLoginUISystem
     {
@@ -25,6 +26,11 @@ namespace ET.Client
 
         public static void ShowWindow(this DlgLoginUI self, Entity contextData = null)
         {
+            //从本地获取默认登录账号信息
+            self.View.E_LoginUserTMP_InputField.text = PlayerPrefs.GetString("Account", string.Empty);
+            self.View.E_LoginPasswordTMP_InputField.text = PlayerPrefs.GetString("Password", string.Empty);
+            
+            self.PlayAnimation();//播放界面动画
         }
 
         [EntitySystem]
@@ -50,15 +56,40 @@ namespace ET.Client
         }
 
         /// <summary>
+        /// 播放登录界面动画
+        /// </summary>
+        /// <param name="self"></param>
+        public static void PlayAnimation(this DlgLoginUI self)
+        {
+            self.View.EG_PanelRectTransform.GetComponent<Animation>().Play("UI_Login_Show");
+        }
+
+        /// <summary>
         /// 异步登录按键处理
         /// </summary>
         /// <param name="self"></param>
         public static async ETTask OnLoginClickHandler(this DlgLoginUI self)
         {
+            string account = self.View.E_LoginUserTMP_InputField.text;//账号
+            string password = self.View.E_LoginPasswordTMP_InputField.text;//密码
+            
             try
             {
                 await ETTask.CompletedTask;
                 //显示登录之后的页面逻辑
+
+                int errorCode = await LoginHelper.LoginGame(self.Root(), account, password);//登录游戏
+
+                if (errorCode != ErrorCode.ERR_Success)//如果获取的不是一个成功的错误码
+                {
+                    UIPopUpHelper.CreateErrorWindow(self.Root(),errorCode);//创建错误弹窗
+                    return;
+                }
+                
+                //登录成功后，在本地保留默认登录账号信息
+                PlayerPrefs.SetString("Account",account);
+                PlayerPrefs.SetString("Password",password);
+                
                 UIComponent uiComponent = self.Root().GetComponent<UIComponent>();
                 uiComponent.ShowWindow(WindowID.WindowID_InitialInterface); //显示游戏初始界面
                 uiComponent.CloseWindow(WindowID.WindowID_LoginUI); //关闭登录窗口
@@ -68,5 +99,6 @@ namespace ET.Client
                 Log.Error(e.ToString());
             }
         }
+        
     }
 }

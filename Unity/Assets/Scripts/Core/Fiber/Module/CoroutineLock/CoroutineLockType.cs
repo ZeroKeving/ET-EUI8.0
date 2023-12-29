@@ -13,6 +13,8 @@ namespace ET
 
         public const int  LoadUIBaseWindows = 8;
 
+        public const int LoginAccount = 10;//登录账号的协程锁类型
+
         public const int Max = 100; // 这个必须最大
     }
 }

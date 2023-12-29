@@ -13,6 +13,9 @@ namespace ET.Client
 		WindowID_LSRoom,
 		WindowID_InitialInterface,//初始化界面
 		WindowID_LoginUI,//登录界面
-		WindowID_Await,
+		WindowID_Await,//加载等待弹窗
+		WindowID_LoadResourceAndLogin,//加载资源界面
+		WindowID_StartGameUI,//开始游戏界面
+		WindowID_ErrorWindow,
 	}
 }

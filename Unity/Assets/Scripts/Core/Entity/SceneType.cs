@@ -35,7 +35,7 @@ namespace ET
 		
 		ProjectS = 1L << 40,
 
-		All = long.MaxValue,
+		All = long.MaxValue, 
 	}
 
 	public static class SceneTypeHelper

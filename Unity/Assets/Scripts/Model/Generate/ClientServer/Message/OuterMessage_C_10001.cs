@@ -969,21 +969,21 @@ namespace ET
 
 	}
 
-	[ResponseType(nameof(R2C_LoginAccout))]
-	[Message(OuterMessage.C2R_LoginAccount)]
+	[ResponseType(nameof(R2C_LoginGame))]
+	[Message(OuterMessage.C2R_LoginGame)]
 	[MemoryPackable]
-	public partial class C2R_LoginAccount: MessageObject, ISessionRequest
+	public partial class C2R_LoginGame: MessageObject, ISessionRequest
 	{
-		public static C2R_LoginAccount Create(bool isFromPool = true) 
+		public static C2R_LoginGame Create(bool isFromPool = true) 
 		{ 
-			return ObjectPool.Instance.Fetch(typeof(C2R_LoginAccount), isFromPool) as C2R_LoginAccount; 
+			return ObjectPool.Instance.Fetch(typeof(C2R_LoginGame), isFromPool) as C2R_LoginGame; 
 		}
 
 		[MemoryPackOrder(0)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
-		public string AccountName { get; set; }
+		public string Account { get; set; }
 
 		[MemoryPackOrder(2)]
 		public string Password { get; set; }
@@ -992,7 +992,7 @@ namespace ET
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
-			this.AccountName = default;
+			this.Account = default;
 			this.Password = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -1000,13 +1000,13 @@ namespace ET
 
 	}
 
-	[Message(OuterMessage.R2C_LoginAccout)]
+	[Message(OuterMessage.R2C_LoginGame)]
 	[MemoryPackable]
-	public partial class R2C_LoginAccout: MessageObject, ISessionResponse
+	public partial class R2C_LoginGame: MessageObject, ISessionResponse
 	{
-		public static R2C_LoginAccout Create(bool isFromPool = true) 
+		public static R2C_LoginGame Create(bool isFromPool = true) 
 		{ 
-			return ObjectPool.Instance.Fetch(typeof(R2C_LoginAccout), isFromPool) as R2C_LoginAccout; 
+			return ObjectPool.Instance.Fetch(typeof(R2C_LoginGame), isFromPool) as R2C_LoginGame; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -1019,10 +1019,13 @@ namespace ET
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
-		public string Token { get; set; }
+		public string Address { get; set; }
 
 		[MemoryPackOrder(4)]
-		public long AccountId { get; set; }
+		public long Key { get; set; }
+
+		[MemoryPackOrder(5)]
+		public long GateId { get; set; }
 
 		public override void Dispose() 
 		{
@@ -1030,8 +1033,74 @@ namespace ET
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
-			this.Token = default;
-			this.AccountId = default;
+			this.Address = default;
+			this.Key = default;
+			this.GateId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(G2C_LoginGameGate))]
+	[Message(OuterMessage.C2G_LoginGameGate)]
+	[MemoryPackable]
+	public partial class C2G_LoginGameGate: MessageObject, ISessionRequest
+	{
+		public static C2G_LoginGameGate Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2G_LoginGameGate), isFromPool) as C2G_LoginGameGate; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long Key { get; set; }
+
+		[MemoryPackOrder(2)]
+		public long GateId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Key = default;
+			this.GateId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.G2C_LoginGameGate)]
+	[MemoryPackable]
+	public partial class G2C_LoginGameGate: MessageObject, ISessionResponse
+	{
+		public static G2C_LoginGameGate Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(G2C_LoginGameGate), isFromPool) as G2C_LoginGameGate; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long PlayerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.PlayerId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1074,7 +1143,9 @@ namespace ET
 		 public const ushort M2C_TransferMap = 10033;
 		 public const ushort C2G_Benchmark = 10034;
 		 public const ushort G2C_Benchmark = 10035;
-		 public const ushort C2R_LoginAccount = 10036;
-		 public const ushort R2C_LoginAccout = 10037;
+		 public const ushort C2R_LoginGame = 10036;
+		 public const ushort R2C_LoginGame = 10037;
+		 public const ushort C2G_LoginGameGate = 10038;
+		 public const ushort G2C_LoginGameGate = 10039;
 	}
 }

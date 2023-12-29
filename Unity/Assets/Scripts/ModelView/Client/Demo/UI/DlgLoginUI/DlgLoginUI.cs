@@ -4,9 +4,8 @@
 	public  class DlgLoginUI :Entity,IAwake,IUILogic,IUpdate
 	{
 
-		public DlgLoginUIViewComponent View { get => this.GetComponent<DlgLoginUIViewComponent>();} 
+		public DlgLoginUIViewComponent View { get => this.GetComponent<DlgLoginUIViewComponent>();}
 
-		 
 
 	}
 }

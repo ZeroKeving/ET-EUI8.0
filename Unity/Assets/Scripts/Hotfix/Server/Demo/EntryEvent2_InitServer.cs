@@ -4,7 +4,7 @@ using System.Net;
 namespace ET.Server
 {
     /// <summary>
-    /// 初始化客户端进入事件
+    /// 初始化服务器进入事件
     /// </summary>
     [Event(SceneType.Main)]
     public class EntryEvent2_InitServer: AEvent<Scene, EntryEvent2>
