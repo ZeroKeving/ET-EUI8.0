@@ -16,19 +16,15 @@ namespace ET.Client
             string password = request.Password;
             // 创建一个ETModel层的Session
             root.RemoveComponent<RouterAddressComponent>();//移除路由节点地址组件，保证每次登录获取新的路由节点地址
-            // 获取路由跟realmDispatcher地址
-            RouterAddressComponent routerAddressComponent = root.GetComponent<RouterAddressComponent>();
-            if (routerAddressComponent == null)
-            { 
-                //设定软路由服务器的地址和端口
-                routerAddressComponent =
-                        root.AddComponent<RouterAddressComponent, string, int>(ConstValue.RouterHttpHost, ConstValue.RouterHttpPort);
-                await routerAddressComponent.Init();//请求RouterMananger服务器，来获取一系列的路由节点地址
-                //给NetClient添加网络组件
-                root.AddComponent<NetComponent, AddressFamily, NetworkProtocol>(routerAddressComponent.RouterManagerIPAddress.AddressFamily, NetworkProtocol.UDP);
-                //把记录MainFiberId记录在纤程父对象组件
-                root.GetComponent<FiberParentComponent>().ParentFiberId = request.OwnerFiberId;
-            }
+            // 获取路由跟realm服务器地址
+            //设定软路由服务器的地址和端口
+            RouterAddressComponent routerAddressComponent =
+                    root.AddComponent<RouterAddressComponent, string, int>(ConstValue.RouterHttpHost, ConstValue.RouterHttpPort);
+            await routerAddressComponent.Init();//请求RouterMananger服务器，来获取一系列的路由节点地址
+            //给NetClient添加网络组件
+            root.AddComponent<NetComponent, AddressFamily, NetworkProtocol>(routerAddressComponent.RouterManagerIPAddress.AddressFamily, NetworkProtocol.UDP);
+            //把记录MainFiberId记录在纤程父对象组件
+            root.GetComponent<FiberParentComponent>().ParentFiberId = request.OwnerFiberId;
 
             NetComponent netComponent = root.GetComponent<NetComponent>();
             
