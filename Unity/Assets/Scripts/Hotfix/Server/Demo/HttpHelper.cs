@@ -3,8 +3,14 @@ using System.Text;
 
 namespace ET.Server
 {
+    //Http网络帮助类
     public static partial class HttpHelper
     {
+        /// <summary>
+        /// 回复函数
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="response"></param>
         public static void Response(HttpListenerContext context, object response)
         {
             byte[] bytes = MongoHelper.ToJson(response).ToUtf8();

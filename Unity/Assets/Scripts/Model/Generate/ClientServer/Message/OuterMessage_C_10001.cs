@@ -988,12 +988,16 @@ namespace ET
 		[MemoryPackOrder(2)]
 		public string Password { get; set; }
 
+		[MemoryPackOrder(3)]
+		public int LoginWay { get; set; }
+
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Account = default;
 			this.Password = default;
+			this.LoginWay = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1036,6 +1040,67 @@ namespace ET
 			this.Address = default;
 			this.Key = default;
 			this.GateId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(R2C_Register))]
+	[Message(OuterMessage.C2R_Register)]
+	[MemoryPackable]
+	public partial class C2R_Register: MessageObject, ISessionRequest
+	{
+		public static C2R_Register Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2R_Register), isFromPool) as C2R_Register; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string Account { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Password { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Account = default;
+			this.Password = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.R2C_Register)]
+	[MemoryPackable]
+	public partial class R2C_Register: MessageObject, ISessionResponse
+	{
+		public static R2C_Register Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(R2C_Register), isFromPool) as R2C_Register; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1145,7 +1210,9 @@ namespace ET
 		 public const ushort G2C_Benchmark = 10035;
 		 public const ushort C2R_LoginGame = 10036;
 		 public const ushort R2C_LoginGame = 10037;
-		 public const ushort C2G_LoginGameGate = 10038;
-		 public const ushort G2C_LoginGameGate = 10039;
+		 public const ushort C2R_Register = 10038;
+		 public const ushort R2C_Register = 10039;
+		 public const ushort C2G_LoginGameGate = 10040;
+		 public const ushort G2C_LoginGameGate = 10041;
 	}
 }

@@ -11,7 +11,7 @@ namespace ET.Server
 		{
 			if (string.IsNullOrEmpty(request.Account)||string.IsNullOrEmpty(request.Password))//判断账号密码是否为空
 			{
-				response.Error = ErrorCode.ERR_LoginInfoNull;//返回登录信息错误码
+				response.Error = ErrorCode.ERR_Login_InfoNull;//返回登录信息错误码
 				CloseSession(session).Coroutine();//延迟1秒后断开连接
 				return;
 			}

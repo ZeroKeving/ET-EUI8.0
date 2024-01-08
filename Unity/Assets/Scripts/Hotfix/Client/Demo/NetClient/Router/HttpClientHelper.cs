@@ -5,6 +5,9 @@ using System.Threading;
 
 namespace ET.Client
 {
+    /// <summary>
+    /// 网站客户端帮助类
+    /// </summary>
     public static partial class HttpClientHelper
     {
         public static async ETTask<string> Get(string link)

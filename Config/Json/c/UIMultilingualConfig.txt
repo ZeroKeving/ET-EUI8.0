@@ -1,0 +1,12 @@
+{"dict": [
+[1, {"_t":"UIMultilingualConfig","_id":1,"CN":"登录游戏","EN":"Login Game"}],
+[2, {"_t":"UIMultilingualConfig","_id":2,"CN":"开始游戏","EN":"Start Game"}],
+[3, {"_t":"UIMultilingualConfig","_id":3,"CN":"切换语言","EN":"Switch The Language"}],
+[4, {"_t":"UIMultilingualConfig","_id":4,"CN":"注册","EN":"Register"}],
+[5, {"_t":"UIMultilingualConfig","_id":5,"CN":"注册账号","EN":"Register Account"}],
+[6, {"_t":"UIMultilingualConfig","_id":6,"CN":"账号","EN":"Account"}],
+[7, {"_t":"UIMultilingualConfig","_id":7,"CN":"输入密码","EN":"Enter Password"}],
+[8, {"_t":"UIMultilingualConfig","_id":8,"CN":"再次输入密码","EN":"Reenter Password"}],
+[9, {"_t":"UIMultilingualConfig","_id":9,"CN":"请输入6到15位的数字或字母......","EN":"Please enter 6 to 15 digits or letters......"}],
+[10, {"_t":"UIMultilingualConfig","_id":10,"CN":"登录","EN":"Login"}],
+]}

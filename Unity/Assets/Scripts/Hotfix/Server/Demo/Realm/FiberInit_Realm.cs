@@ -17,6 +17,7 @@ namespace ET.Server
             root.AddComponent<NetComponent, IPEndPoint, NetworkProtocol>(startSceneConfig.InnerIPPort, NetworkProtocol.UDP);
 
             root.AddComponent<DBManagerComponent>();//添加数据库管理组件
+            
 
             await ETTask.CompletedTask;
         }

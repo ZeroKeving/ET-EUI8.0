@@ -73,6 +73,28 @@ namespace ET.Client
             }) as NetClient2Main_LoginGame;
             return response;
         }
+        
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static async ETTask<NetClient2Main_LoginGame> RegisterAsync(this ClientSenderCompnent self, string account, string password)
+        {
+            //创建NetClient纤程
+            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
+            //创建NetClient的实体id
+            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
+
+            //两个纤程之间通信使用ProcessInnerSender
+            NetClient2Main_LoginGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, new Main2NetClient_LoginGame()
+            {
+                OwnerFiberId = self.Fiber().Id, Account = account, Password = password
+            }) as NetClient2Main_LoginGame;
+            return response;
+        }
 
         public static void Send(this ClientSenderCompnent self, IMessage message)
         {

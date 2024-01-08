@@ -16,7 +16,7 @@ namespace ET
 
         public List<StartSceneConfig> Realms = new();
         
-        public List<StartSceneConfig> Routers = new();
+        public List<StartSceneConfig> Routers = new();//路由地址
         
         public List<StartSceneConfig> Maps = new();
 
@@ -34,6 +34,9 @@ namespace ET
             return this.ClientScenesByName[zone][name];
         }
 
+        /// <summary>
+        /// 所有配置数据被序列化为类对象后的初始化
+        /// </summary>
         public override void EndInit()
         {
             foreach (StartSceneConfig startSceneConfig in this.GetAll().Values)

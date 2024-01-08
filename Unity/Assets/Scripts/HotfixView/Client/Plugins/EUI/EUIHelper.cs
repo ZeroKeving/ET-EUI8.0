@@ -216,7 +216,24 @@ namespace ET.Client
                 clickActionAsync().Coroutine();
             });
         }
-        
+
+        /// <summary>
+        /// UI异步任务等待
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="action"></param>
+        /// <param name="IsPanel">是否需要按键阻挡</param>
+        public static async ETTask UIAwaitsyncAction(Entity entity, Func<ETTask> action, bool IsPanel = true)
+        {
+            UIComponent uiComponent = entity.Root().GetComponent<UIComponent>();
+
+            DelayedAwaitLoading(uiComponent,IsPanel).Coroutine(); //开始延迟显示等待信息弹窗
+
+            await action();
+
+            HideAwaitLoading(uiComponent); //关闭等待信息弹窗
+        }
+
         /// <summary>
         /// 异步按键监听
         /// </summary>
@@ -235,16 +252,17 @@ namespace ET.Client
                 UIComponent uiComponent = root.GetComponent<UIComponent>();
                 if (loading)
                 {
-                    DelayedAwaitLoading(uiComponent).Coroutine();//开始延迟显示等待信息弹窗
+                    DelayedAwaitLoading(uiComponent).Coroutine(); //开始延迟显示等待信息弹窗
                 }
 
                 await action();
 
                 if (loading)
                 {
-                    HideAwaitLoading(uiComponent);//关闭等待信息弹窗
+                    HideAwaitLoading(uiComponent); //关闭等待信息弹窗
                 }
-                UIEventComponent.Instance?.SetUIClicked(false);//关闭异步按键点击事件锁
+
+                UIEventComponent.Instance?.SetUIClicked(false); //关闭异步按键点击事件锁
             }
 
             button.onClick.AddListener(() =>
@@ -254,37 +272,39 @@ namespace ET.Client
                     return;
                 }
 
-                if (UIEventComponent.Instance.IsClicked)//如果被锁了就返回
+                if (UIEventComponent.Instance.IsClicked) //如果被锁了就返回
                 {
                     return;
                 }
 
-                clickActionAsync().Coroutine();//以协程的方式启动这个内部方法
+                clickActionAsync().Coroutine(); //以协程的方式启动这个内部方法
             });
         }
-        
+
         /// <summary>
         /// 延迟0.5秒等待加载显示
         /// </summary>
         /// <param name="uiComponent"></param>
-        public static async ETTask DelayedAwaitLoading(UIComponent uiComponent)
+        /// <param name="IsPanel">是否需要全屏按键阻挡</param>
+        public static async ETTask DelayedAwaitLoading(UIComponent uiComponent, bool IsPanel = false)
         {
-            if (uiComponent.GetDlgLogic<DlgAwait>() == null)
+            uiComponent.ShowWindow(WindowID.WindowID_Await); //显示等待弹窗
+
+            if (IsPanel)
             {
-                uiComponent.ShowWindow(WindowID.WindowID_Await);//显示等待弹窗
-                uiComponent.HideWindow(WindowID.WindowID_Await);//隐藏等待弹窗
+                uiComponent.GetDlgLogic<DlgAwait>().OpenPanel(); //开启全屏按键阻挡
             }
 
-            uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait = true;//设置为正需要延迟
+            uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait = true; //设置为正需要延迟
 
-            await uiComponent.Root().GetComponent<TimerComponent>().WaitAsync(500);//延迟等待0.5秒
+            await uiComponent.Root().GetComponent<TimerComponent>().WaitAsync(500); //延迟等待0.5秒
 
             if (uiComponent != null && uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait)
             {
-                uiComponent.ShowWindow(WindowID.WindowID_Await);//显示等待弹窗
+                uiComponent.GetDlgLogic<DlgAwait>().ShowLoadingImage(); //显示加载图片
             }
         }
-        
+
         /// <summary>
         /// 隐藏等待加载显示
         /// </summary>
@@ -296,14 +316,14 @@ namespace ET.Client
                 return;
             }
 
-            if (!uiComponent.IsWindowVisible(WindowID.WindowID_Await))//如果等待信息弹窗没有被显示出来
+            if (!uiComponent.IsWindowVisible(WindowID.WindowID_Await)) //如果等待信息弹窗没有被显示出来
             {
-                uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait = false;//关闭延迟显示
+                uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait = false; //关闭延迟显示
             }
             else
             {
-                uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait = false;//关闭延迟显示
-                uiComponent.HideWindow(WindowID.WindowID_Await);//隐藏等待信息弹窗
+                uiComponent.GetDlgLogic<DlgAwait>().isNeedAwait = false; //关闭延迟显示
+                uiComponent.HideWindow(WindowID.WindowID_Await); //隐藏等待信息弹窗
             }
         }
 

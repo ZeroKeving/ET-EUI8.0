@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine;
 
 namespace ET.Client;
 
@@ -31,14 +32,14 @@ public class Main2NetClient_LoginGameHandler:MessageHandler<Scene, Main2NetClien
 
             NetComponent netComponent = root.GetComponent<NetComponent>();
             
-            //获取Realm网关负载均衡服务器地址
+            //根据账号取模来获取Realm网关负载均衡服务器地址（为什么用账号取模？如果有两个玩家同时注册账号，用的账号一致，就可以使账号连接同一个服务器，来保证唯一性）
             IPEndPoint realmAddress = routerAddressComponent.GetRealmAddress(account);
 
             //通过Router节点服务器建立和Realm网关负载驱动服务器连接
             R2C_LoginGame r2CLoginGame;
             using (Session session = await netComponent.CreateRouterSession(realmAddress, account, password))
             {
-                r2CLoginGame = (R2C_LoginGame)await session.Call(new C2R_LoginGame() { Account = account, Password = password });
+                r2CLoginGame = (R2C_LoginGame)await session.Call(new C2R_LoginGame() { Account = account, Password = password ,LoginWay = (int)LoginWayType.Normal});//使用普通账号密码登录
             }
 
             if (r2CLoginGame.Error != ErrorCode.ERR_Success)//如果Realm网关负载驱动服务器登录失败，则返回错误码

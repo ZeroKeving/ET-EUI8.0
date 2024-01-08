@@ -17,5 +17,6 @@ namespace ET.Client
 		WindowID_LoadResourceAndLogin,//加载资源界面
 		WindowID_StartGameUI,//开始游戏界面
 		WindowID_ErrorWindow,
+		WindowID_SetUI,
 	}
 }

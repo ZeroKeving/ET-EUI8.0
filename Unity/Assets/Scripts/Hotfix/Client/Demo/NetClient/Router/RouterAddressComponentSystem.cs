@@ -16,19 +16,27 @@ namespace ET.Client
             self.RouterManagerPort = port;
         }
         
+        /// <summary>
+        /// 开始获取节点地址
+        /// </summary>
+        /// <param name="self"></param>
         public static async ETTask Init(this RouterAddressComponent self)
         {
             self.RouterManagerIPAddress = NetworkHelper.GetHostAddress(self.RouterManagerHost);
             await self.GetAllRouter();
         }
 
+        /// <summary>
+        /// 获取所有节点
+        /// </summary>
+        /// <param name="self"></param>
         private static async ETTask GetAllRouter(this RouterAddressComponent self)
         {
             string url = $"http://{self.RouterManagerHost}:{self.RouterManagerPort}/get_router?v={RandomGenerator.RandUInt32()}";
             Log.Debug($"start get router info: {url}");
-            string routerInfo = await HttpClientHelper.Get(url);
+            string routerInfo = await HttpClientHelper.Get(url);//获取节点信息（Json格式）
             Log.Debug($"recv router info: {routerInfo}");
-            HttpGetRouterResponse httpGetRouterResponse = MongoHelper.FromJson<HttpGetRouterResponse>(routerInfo);
+            HttpGetRouterResponse httpGetRouterResponse = MongoHelper.FromJson<HttpGetRouterResponse>(routerInfo);//将Json格式转换成实体
             self.Info = httpGetRouterResponse;
             Log.Debug($"start get router info finish: {MongoHelper.ToJson(httpGetRouterResponse)}");
             
@@ -67,10 +75,16 @@ namespace ET.Client
             return new IPEndPoint(ipAddress, int.Parse(ss[1]));
         }
         
+        /// <summary>
+        /// 根据账号取模来获取其中一个Realm服务器地址
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public static IPEndPoint GetRealmAddress(this RouterAddressComponent self, string account)
         {
-            int v = account.Mode(self.Info.Realms.Count);
-            string address = self.Info.Realms[v];
+            int modCount = Math.Abs(account.GetHashCode() % self.Info.Realms.Count);//根据账号哈希值取模的绝对值
+            string address = self.Info.Realms[modCount];
             string[] ss = address.Split(':');
             IPAddress ipAddress = IPAddress.Parse(ss[0]);
             //if (self.IPAddress.AddressFamily == AddressFamily.InterNetworkV6)

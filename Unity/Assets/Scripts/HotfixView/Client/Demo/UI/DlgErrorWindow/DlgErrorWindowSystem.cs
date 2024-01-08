@@ -54,6 +54,12 @@ namespace ET.Client
                 case 200007:
                     errortText = "登录密码错误";
                     break;
+                case 200008:
+                    errortText = "频繁请求多次，请稍后再试";
+                    break;
+                case 200009:
+                    errortText = "登录令牌错误";
+                    break;
                 default:
                     errortText = "未知错误";
                     break;

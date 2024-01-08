@@ -17,7 +17,7 @@ public class C2G_LoginGameGateHandler : MessageSessionHandler<C2G_LoginGameGate,
                 return;
             }
             
-            session.RemoveComponent<SessionAcceptTimeoutComponent>();
+            session.RemoveComponent<SessionAcceptTimeoutComponent>();//移除连接5秒超时组件（代表连接通过了验证，如果没有通过验证该组件5秒后会断开连接）
 
             PlayerComponent playerComponent = root.GetComponent<PlayerComponent>();
             Player player = playerComponent.GetByAccount(account);

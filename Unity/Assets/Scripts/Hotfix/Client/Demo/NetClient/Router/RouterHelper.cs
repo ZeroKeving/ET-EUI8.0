@@ -19,7 +19,7 @@ namespace ET.Client
             
             Log.Info($"get router: {recvLocalConn} {routerAddress}");
 
-            Session routerSession = netComponent.Create(routerAddress, address, recvLocalConn);
+            Session routerSession = netComponent.Create(routerAddress, address, recvLocalConn);//使用路由服务器地址和传入的地址，创建一个最终的连接
             routerSession.AddComponent<PingComponent>();
             routerSession.AddComponent<RouterCheckComponent>();
             

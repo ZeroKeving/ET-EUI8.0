@@ -240,11 +240,11 @@ message C2R_LoginGame // ISessionRequest
 	int32 RpcId = 1;//如果要服务器回复这个消息就必须要加，且message后面的备注也需要加ISessionRequest，如果服务器不需要回复则不用加这个变量
 	string Account = 2;//账号
 	string Password = 3;//密码
+	int32 LoginWay = 4;//登录方式
 }
 
 message R2C_LoginGame // ISessionResponse
 {
-
 	int32 RpcId = 1;//message后面的备注标识表示服务器返回消息，必须要存在
 	int32 Error = 2;//必须要存在
 	string Message = 3;//必须要存在
@@ -252,6 +252,22 @@ message R2C_LoginGame // ISessionResponse
 	string Address = 4;
 	int64 Key = 5;
 	int64 GateId = 6;
+}
+
+//ResponseType R2C_Register
+message C2R_Register // ISessionRequest
+{
+	int32 RpcId = 1;//如果要服务器回复这个消息就必须要加，且message后面的备注也需要加ISessionRequest，如果服务器不需要回复则不用加这个变量
+	string Account = 2;//账号
+	string Password = 3;//密码
+}
+
+message R2C_Register // ISessionResponse
+{
+
+	int32 RpcId = 1;//message后面的备注标识表示服务器返回消息，必须要存在
+	int32 Error = 2;//必须要存在
+	string Message = 3;//必须要存在
 }
 
 //ResponseType G2C_LoginGameGate
