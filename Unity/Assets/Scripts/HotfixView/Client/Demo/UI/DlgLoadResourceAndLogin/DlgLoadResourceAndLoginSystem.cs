@@ -87,16 +87,9 @@ namespace ET.Client
             animation.Play("UI_Loading_Hide");
             //等待进度条动画播放完毕
             await self.Root().GetComponent<TimerComponent>().WaitAsync((long)animation["UI_Loading_Hide"].length * 1500);
-            // 播放登录页面动画和显示登录页面
-            Animation animationParent = self.View.EG_ContentRectTransform.gameObject.GetComponent<Animation>();
-            animationParent.Play("UI_Loading_Complete_And_Show_Login");
-            
-            //TO DO
-            // self.Root().GetComponent<ObjectWait>().Notify(new WaitType.Wait_LoadingFinish());//通知等待加载完毕的协程
-            // EventSystem.Instance.Publish(self.Root(), new LoadingFinish());//抛出加载完成事件
             
             self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_StartGameUI);//打开开始游戏页面
-            self.Root().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_LoadResourceAndLogin);//结束后隐藏加载界面
+            // self.Root().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_LoadResourceAndLogin);//结束后隐藏加载界面
         }
     }
 }

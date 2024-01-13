@@ -21,7 +21,8 @@ namespace ET.Client
         /// <param name="self"></param>
         public static void RegisterUIEvent(this DlgLoginUI self)
         {
-            self.RegisterCloseEvent<DlgLoginUI>(self.View.E_CloseButtonButton); //关闭按钮注册关闭事件
+            self.RegisterCloseEvent<DlgLoginUI>(self.View.E_LoginCloseButtonButton); //关闭按钮注册关闭事件
+            self.RegisterCloseEvent<DlgLoginUI>(self.View.E_RegisterCloseButtonButton); //关闭按钮注册关闭事件
             self.View.E_CutRegisterButtonButton.AddListener(self.OnCutRegisterClickHandler); //切换注册按钮监听
             self.View.E_CutLoginButtonButton.AddListener(self.OnCutLoginClickHandler); //切换登录按钮监听
             self.View.E_StartRegisterButtonButton.AddListenerAsync(() => { return self.OnStartRegisterClickHandler(); }, self.Root()); //异步监听注册按键
@@ -33,11 +34,9 @@ namespace ET.Client
             //从本地获取默认登录账号信息
             self.View.E_LoginUserTMP_InputField.text = PlayerPrefs.GetString("Account", string.Empty);
             self.View.E_LoginPasswordTMP_InputField.text = PlayerPrefs.GetString("Password", string.Empty);
-
-            self.PlayAnimation(); //播放界面动画
+            
             self.Refresh();
             self.View.EG_RegisterRectTransform.SetVisible(false); //隐藏注册界面
-            self.View.E_CutLoginButtonButton.SetVisible(false); //隐藏切换登录按钮
         }
 
         /// <summary>
@@ -46,16 +45,16 @@ namespace ET.Client
         public static void Refresh(this DlgLoginUI self)
         {
             //显示文本内容
+            // 登录
+            self.View.E_LoginTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[10]);
             self.View.E_CutRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[4]);
-            self.View.E_RegisterTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[4]);
-            self.View.E_StartRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[5]);
-            self.View.E_RegisterAccountTitleTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[6]);
-            self.View.E_RegisterPasswordTitleTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[7]);
-            self.View.E_RegisterPasswordTitle2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[8]);
+            // 注册
             self.View.E_RegisterAccountPlaceholderTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[9]);
-            self.View.E_RegisterPasswordPlaceholderTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[9]);
-            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[9]);
-            self.View.E_CutLoginButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[10]);
+            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[7]);
+            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[8]);
+            self.View.E_StartRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[5]);
+            self.View.E_BackLoginButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[11]);
+            
         }
 
         [EntitySystem]
@@ -92,16 +91,7 @@ namespace ET.Client
                 self.View.E_StartRegisterButtonButton.interactable = true;
             }
         }
-
-        /// <summary>
-        /// 播放登录界面动画
-        /// </summary>
-        /// <param name="self"></param>
-        public static void PlayAnimation(this DlgLoginUI self)
-        {
-            self.View.EG_PanelRectTransform.GetComponent<Animation>().Play("UI_Login_Show");
-        }
-
+        
         /// <summary>
         /// 异步登录按键处理
         /// </summary>
@@ -183,7 +173,7 @@ namespace ET.Client
         public static void OnCutRegisterClickHandler(this DlgLoginUI self)
         {
             self.View.EG_RegisterRectTransform.SetVisible(true); //显示注册界面
-            self.View.EG_PanelRectTransform.SetVisible(false); //隐藏登录界面
+            self.View.EG_LoginPanelRectTransform.SetVisible(false); //隐藏登录界面
             self.View.E_CutLoginButtonButton.SetVisible(true); //显示切换登录按钮
             self.View.E_CutRegisterButtonButton.SetVisible(false); //隐藏切换注册按钮
         }
@@ -194,7 +184,7 @@ namespace ET.Client
         /// <param name="self"></param>
         public static void OnCutLoginClickHandler(this DlgLoginUI self)
         {
-            self.View.EG_PanelRectTransform.SetVisible(true); //显示登录界面
+            self.View.EG_LoginPanelRectTransform.SetVisible(true); //显示登录界面
             self.View.EG_RegisterRectTransform.SetVisible(false); //隐藏注册界面
             self.View.E_CutRegisterButtonButton.SetVisible(true); //显示切换注册按钮
             self.View.E_CutLoginButtonButton.SetVisible(false); //隐藏切换登录按钮

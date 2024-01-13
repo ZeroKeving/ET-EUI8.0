@@ -7,7 +7,7 @@ namespace ET.Client
 	[EnableMethod]
 	public  class DlgLoginUIViewComponent : Entity,IAwake,IDestroy 
 	{
-		public UnityEngine.RectTransform EG_PanelRectTransform
+		public UnityEngine.RectTransform EG_LoginPanelRectTransform
      	{
      		get
      		{
@@ -16,28 +16,11 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_EG_PanelRectTransform == null )
+     			if( this.m_EG_LoginPanelRectTransform == null )
      			{
-		    		this.m_EG_PanelRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EG_Panel");
+		    		this.m_EG_LoginPanelRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EG_LoginPanel");
      			}
-     			return this.m_EG_PanelRectTransform;
-     		}
-     	}
-
-		public TMPro.TextMeshProUGUI ELabel_UsernameTextMeshProUGUI
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_ELabel_UsernameTextMeshProUGUI == null )
-     			{
-		    		this.m_ELabel_UsernameTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Panel/LoginPanel/ELabel_Username");
-     			}
-     			return this.m_ELabel_UsernameTextMeshProUGUI;
+     			return this.m_EG_LoginPanelRectTransform;
      		}
      	}
 
@@ -52,7 +35,7 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginUserTMP_InputField == null )
      			{
-		    		this.m_E_LoginUserTMP_InputField = UIFindHelper.FindDeepChild<TMPro.TMP_InputField>(this.uiTransform.gameObject,"EG_Panel/LoginPanel/E_LoginUser");
+		    		this.m_E_LoginUserTMP_InputField = UIFindHelper.FindDeepChild<TMPro.TMP_InputField>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginUser");
      			}
      			return this.m_E_LoginUserTMP_InputField;
      		}
@@ -69,26 +52,9 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginUserImage == null )
      			{
-		    		this.m_E_LoginUserImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Panel/LoginPanel/E_LoginUser");
+		    		this.m_E_LoginUserImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginUser");
      			}
      			return this.m_E_LoginUserImage;
-     		}
-     	}
-
-		public TMPro.TextMeshProUGUI ELabel_PasswordTextMeshProUGUI
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_ELabel_PasswordTextMeshProUGUI == null )
-     			{
-		    		this.m_ELabel_PasswordTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Panel/LoginPanel/ELabel_Password");
-     			}
-     			return this.m_ELabel_PasswordTextMeshProUGUI;
      		}
      	}
 
@@ -103,7 +69,7 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginPasswordTMP_InputField == null )
      			{
-		    		this.m_E_LoginPasswordTMP_InputField = UIFindHelper.FindDeepChild<TMPro.TMP_InputField>(this.uiTransform.gameObject,"EG_Panel/LoginPanel/E_LoginPassword");
+		    		this.m_E_LoginPasswordTMP_InputField = UIFindHelper.FindDeepChild<TMPro.TMP_InputField>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginPassword");
      			}
      			return this.m_E_LoginPasswordTMP_InputField;
      		}
@@ -120,9 +86,60 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginPasswordImage == null )
      			{
-		    		this.m_E_LoginPasswordImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Panel/LoginPanel/E_LoginPassword");
+		    		this.m_E_LoginPasswordImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginPassword");
      			}
      			return this.m_E_LoginPasswordImage;
+     		}
+     	}
+
+		public UnityEngine.UI.Button E_CutRegisterButtonButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_CutRegisterButtonButton == null )
+     			{
+		    		this.m_E_CutRegisterButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_LoginPanel/E_CutRegisterButton");
+     			}
+     			return this.m_E_CutRegisterButtonButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_CutRegisterButtonImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_CutRegisterButtonImage == null )
+     			{
+		    		this.m_E_CutRegisterButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_LoginPanel/E_CutRegisterButton");
+     			}
+     			return this.m_E_CutRegisterButtonImage;
+     		}
+     	}
+
+		public TMPro.TextMeshProUGUI E_CutRegisterButtonTextTextMeshProUGUI
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_CutRegisterButtonTextTextMeshProUGUI == null )
+     			{
+		    		this.m_E_CutRegisterButtonTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_LoginPanel/E_CutRegisterButton/E_CutRegisterButtonText");
+     			}
+     			return this.m_E_CutRegisterButtonTextTextMeshProUGUI;
      		}
      	}
 
@@ -137,7 +154,7 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginButtonButton == null )
      			{
-		    		this.m_E_LoginButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Panel/E_LoginButton");
+		    		this.m_E_LoginButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginButton");
      			}
      			return this.m_E_LoginButtonButton;
      		}
@@ -154,7 +171,7 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginButtonImage == null )
      			{
-		    		this.m_E_LoginButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Panel/E_LoginButton");
+		    		this.m_E_LoginButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginButton");
      			}
      			return this.m_E_LoginButtonImage;
      		}
@@ -171,13 +188,13 @@ namespace ET.Client
      			}
      			if( this.m_E_LoginTextTextMeshProUGUI == null )
      			{
-		    		this.m_E_LoginTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Panel/E_LoginButton/E_LoginText");
+		    		this.m_E_LoginTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginButton/E_LoginText");
      			}
      			return this.m_E_LoginTextTextMeshProUGUI;
      		}
      	}
 
-		public TMPro.TextMeshProUGUI ELabel_LoginTextMeshProUGUI
+		public UnityEngine.UI.Button E_LoginCloseButtonButton
      	{
      		get
      		{
@@ -186,11 +203,28 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_ELabel_LoginTextMeshProUGUI == null )
+     			if( this.m_E_LoginCloseButtonButton == null )
      			{
-		    		this.m_ELabel_LoginTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Panel/ELabel_Login");
+		    		this.m_E_LoginCloseButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginCloseButton");
      			}
-     			return this.m_ELabel_LoginTextMeshProUGUI;
+     			return this.m_E_LoginCloseButtonButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_LoginCloseButtonImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_LoginCloseButtonImage == null )
+     			{
+		    		this.m_E_LoginCloseButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_LoginPanel/E_LoginCloseButton");
+     			}
+     			return this.m_E_LoginCloseButtonImage;
      		}
      	}
 
@@ -211,7 +245,7 @@ namespace ET.Client
      		}
      	}
 
-		public TMPro.TextMeshProUGUI E_RegisterTextTextMeshProUGUI
+		public UnityEngine.UI.Button E_CutLoginButtonButton
      	{
      		get
      		{
@@ -220,15 +254,15 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_RegisterTextTextMeshProUGUI == null )
+     			if( this.m_E_CutLoginButtonButton == null )
      			{
-		    		this.m_E_RegisterTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Register/E_RegisterText");
+		    		this.m_E_CutLoginButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Register/E_CutLoginButton");
      			}
-     			return this.m_E_RegisterTextTextMeshProUGUI;
+     			return this.m_E_CutLoginButtonButton;
      		}
      	}
 
-		public TMPro.TextMeshProUGUI E_RegisterAccountTitleTextMeshProUGUI
+		public UnityEngine.UI.Image E_CutLoginButtonImage
      	{
      		get
      		{
@@ -237,11 +271,28 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_RegisterAccountTitleTextMeshProUGUI == null )
+     			if( this.m_E_CutLoginButtonImage == null )
      			{
-		    		this.m_E_RegisterAccountTitleTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Register/E_RegisterAccountTitle");
+		    		this.m_E_CutLoginButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Register/E_CutLoginButton");
      			}
-     			return this.m_E_RegisterAccountTitleTextMeshProUGUI;
+     			return this.m_E_CutLoginButtonImage;
+     		}
+     	}
+
+		public TMPro.TextMeshProUGUI E_BackLoginButtonTextTextMeshProUGUI
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_BackLoginButtonTextTextMeshProUGUI == null )
+     			{
+		    		this.m_E_BackLoginButtonTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Register/E_CutLoginButton/E_BackLoginButtonText");
+     			}
+     			return this.m_E_BackLoginButtonTextTextMeshProUGUI;
      		}
      	}
 
@@ -296,23 +347,6 @@ namespace ET.Client
      		}
      	}
 
-		public TMPro.TextMeshProUGUI E_RegisterPasswordTitleTextMeshProUGUI
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_RegisterPasswordTitleTextMeshProUGUI == null )
-     			{
-		    		this.m_E_RegisterPasswordTitleTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Register/E_RegisterPasswordTitle");
-     			}
-     			return this.m_E_RegisterPasswordTitleTextMeshProUGUI;
-     		}
-     	}
-
 		public TMPro.TMP_InputField E_RegisterPasswordInputFieldTMP_InputField
      	{
      		get
@@ -361,23 +395,6 @@ namespace ET.Client
 		    		this.m_E_RegisterPasswordPlaceholderTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Register/E_RegisterPasswordInputField/Text Area/E_RegisterPasswordPlaceholder");
      			}
      			return this.m_E_RegisterPasswordPlaceholderTextMeshProUGUI;
-     		}
-     	}
-
-		public TMPro.TextMeshProUGUI E_RegisterPasswordTitle2TextMeshProUGUI
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_RegisterPasswordTitle2TextMeshProUGUI == null )
-     			{
-		    		this.m_E_RegisterPasswordTitle2TextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Register/E_RegisterPasswordTitle2");
-     			}
-     			return this.m_E_RegisterPasswordTitle2TextMeshProUGUI;
      		}
      	}
 
@@ -483,7 +500,7 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Button E_CutRegisterButtonButton
+		public UnityEngine.UI.Button E_RegisterCloseButtonButton
      	{
      		get
      		{
@@ -492,15 +509,15 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_CutRegisterButtonButton == null )
+     			if( this.m_E_RegisterCloseButtonButton == null )
      			{
-		    		this.m_E_CutRegisterButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_CutRegisterButton");
+		    		this.m_E_RegisterCloseButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Register/E_RegisterCloseButton");
      			}
-     			return this.m_E_CutRegisterButtonButton;
+     			return this.m_E_RegisterCloseButtonButton;
      		}
      	}
 
-		public UnityEngine.UI.Image E_CutRegisterButtonImage
+		public UnityEngine.UI.Image E_RegisterCloseButtonImage
      	{
      		get
      		{
@@ -509,193 +526,81 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_CutRegisterButtonImage == null )
+     			if( this.m_E_RegisterCloseButtonImage == null )
      			{
-		    		this.m_E_CutRegisterButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_CutRegisterButton");
+		    		this.m_E_RegisterCloseButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Register/E_RegisterCloseButton");
      			}
-     			return this.m_E_CutRegisterButtonImage;
-     		}
-     	}
-
-		public TMPro.TextMeshProUGUI E_CutRegisterButtonTextTextMeshProUGUI
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CutRegisterButtonTextTextMeshProUGUI == null )
-     			{
-		    		this.m_E_CutRegisterButtonTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_CutRegisterButton/E_CutRegisterButtonText");
-     			}
-     			return this.m_E_CutRegisterButtonTextTextMeshProUGUI;
-     		}
-     	}
-
-		public UnityEngine.UI.Button E_CutLoginButtonButton
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CutLoginButtonButton == null )
-     			{
-		    		this.m_E_CutLoginButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_CutLoginButton");
-     			}
-     			return this.m_E_CutLoginButtonButton;
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_CutLoginButtonImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CutLoginButtonImage == null )
-     			{
-		    		this.m_E_CutLoginButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_CutLoginButton");
-     			}
-     			return this.m_E_CutLoginButtonImage;
-     		}
-     	}
-
-		public TMPro.TextMeshProUGUI E_CutLoginButtonTextTextMeshProUGUI
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CutLoginButtonTextTextMeshProUGUI == null )
-     			{
-		    		this.m_E_CutLoginButtonTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_CutLoginButton/E_CutLoginButtonText");
-     			}
-     			return this.m_E_CutLoginButtonTextTextMeshProUGUI;
-     		}
-     	}
-
-		public UnityEngine.UI.Button E_CloseButtonButton
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CloseButtonButton == null )
-     			{
-		    		this.m_E_CloseButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_CloseButton");
-     			}
-     			return this.m_E_CloseButtonButton;
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_CloseButtonImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CloseButtonImage == null )
-     			{
-		    		this.m_E_CloseButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_CloseButton");
-     			}
-     			return this.m_E_CloseButtonImage;
+     			return this.m_E_RegisterCloseButtonImage;
      		}
      	}
 
 		public void DestroyWidget()
 		{
-			this.m_EG_PanelRectTransform = null;
-			this.m_ELabel_UsernameTextMeshProUGUI = null;
+			this.m_EG_LoginPanelRectTransform = null;
 			this.m_E_LoginUserTMP_InputField = null;
 			this.m_E_LoginUserImage = null;
-			this.m_ELabel_PasswordTextMeshProUGUI = null;
 			this.m_E_LoginPasswordTMP_InputField = null;
 			this.m_E_LoginPasswordImage = null;
+			this.m_E_CutRegisterButtonButton = null;
+			this.m_E_CutRegisterButtonImage = null;
+			this.m_E_CutRegisterButtonTextTextMeshProUGUI = null;
 			this.m_E_LoginButtonButton = null;
 			this.m_E_LoginButtonImage = null;
 			this.m_E_LoginTextTextMeshProUGUI = null;
-			this.m_ELabel_LoginTextMeshProUGUI = null;
+			this.m_E_LoginCloseButtonButton = null;
+			this.m_E_LoginCloseButtonImage = null;
 			this.m_EG_RegisterRectTransform = null;
-			this.m_E_RegisterTextTextMeshProUGUI = null;
-			this.m_E_RegisterAccountTitleTextMeshProUGUI = null;
+			this.m_E_CutLoginButtonButton = null;
+			this.m_E_CutLoginButtonImage = null;
+			this.m_E_BackLoginButtonTextTextMeshProUGUI = null;
 			this.m_E_RegisterAccountInputFieldTMP_InputField = null;
 			this.m_E_RegisterAccountInputFieldImage = null;
 			this.m_E_RegisterAccountPlaceholderTextMeshProUGUI = null;
-			this.m_E_RegisterPasswordTitleTextMeshProUGUI = null;
 			this.m_E_RegisterPasswordInputFieldTMP_InputField = null;
 			this.m_E_RegisterPasswordInputFieldImage = null;
 			this.m_E_RegisterPasswordPlaceholderTextMeshProUGUI = null;
-			this.m_E_RegisterPasswordTitle2TextMeshProUGUI = null;
 			this.m_E_RegisterPasswordInputField2TMP_InputField = null;
 			this.m_E_RegisterPasswordInputField2Image = null;
 			this.m_E_RegisterPasswordPlaceholder2TextMeshProUGUI = null;
 			this.m_E_StartRegisterButtonButton = null;
 			this.m_E_StartRegisterButtonImage = null;
 			this.m_E_StartRegisterButtonTextTextMeshProUGUI = null;
-			this.m_E_CutRegisterButtonButton = null;
-			this.m_E_CutRegisterButtonImage = null;
-			this.m_E_CutRegisterButtonTextTextMeshProUGUI = null;
-			this.m_E_CutLoginButtonButton = null;
-			this.m_E_CutLoginButtonImage = null;
-			this.m_E_CutLoginButtonTextTextMeshProUGUI = null;
-			this.m_E_CloseButtonButton = null;
-			this.m_E_CloseButtonImage = null;
+			this.m_E_RegisterCloseButtonButton = null;
+			this.m_E_RegisterCloseButtonImage = null;
 			this.uiTransform = null;
 		}
 
-		private UnityEngine.RectTransform m_EG_PanelRectTransform = null;
-		private TMPro.TextMeshProUGUI m_ELabel_UsernameTextMeshProUGUI = null;
+		private UnityEngine.RectTransform m_EG_LoginPanelRectTransform = null;
 		private TMPro.TMP_InputField m_E_LoginUserTMP_InputField = null;
 		private UnityEngine.UI.Image m_E_LoginUserImage = null;
-		private TMPro.TextMeshProUGUI m_ELabel_PasswordTextMeshProUGUI = null;
 		private TMPro.TMP_InputField m_E_LoginPasswordTMP_InputField = null;
 		private UnityEngine.UI.Image m_E_LoginPasswordImage = null;
+		private UnityEngine.UI.Button m_E_CutRegisterButtonButton = null;
+		private UnityEngine.UI.Image m_E_CutRegisterButtonImage = null;
+		private TMPro.TextMeshProUGUI m_E_CutRegisterButtonTextTextMeshProUGUI = null;
 		private UnityEngine.UI.Button m_E_LoginButtonButton = null;
 		private UnityEngine.UI.Image m_E_LoginButtonImage = null;
 		private TMPro.TextMeshProUGUI m_E_LoginTextTextMeshProUGUI = null;
-		private TMPro.TextMeshProUGUI m_ELabel_LoginTextMeshProUGUI = null;
+		private UnityEngine.UI.Button m_E_LoginCloseButtonButton = null;
+		private UnityEngine.UI.Image m_E_LoginCloseButtonImage = null;
 		private UnityEngine.RectTransform m_EG_RegisterRectTransform = null;
-		private TMPro.TextMeshProUGUI m_E_RegisterTextTextMeshProUGUI = null;
-		private TMPro.TextMeshProUGUI m_E_RegisterAccountTitleTextMeshProUGUI = null;
+		private UnityEngine.UI.Button m_E_CutLoginButtonButton = null;
+		private UnityEngine.UI.Image m_E_CutLoginButtonImage = null;
+		private TMPro.TextMeshProUGUI m_E_BackLoginButtonTextTextMeshProUGUI = null;
 		private TMPro.TMP_InputField m_E_RegisterAccountInputFieldTMP_InputField = null;
 		private UnityEngine.UI.Image m_E_RegisterAccountInputFieldImage = null;
 		private TMPro.TextMeshProUGUI m_E_RegisterAccountPlaceholderTextMeshProUGUI = null;
-		private TMPro.TextMeshProUGUI m_E_RegisterPasswordTitleTextMeshProUGUI = null;
 		private TMPro.TMP_InputField m_E_RegisterPasswordInputFieldTMP_InputField = null;
 		private UnityEngine.UI.Image m_E_RegisterPasswordInputFieldImage = null;
 		private TMPro.TextMeshProUGUI m_E_RegisterPasswordPlaceholderTextMeshProUGUI = null;
-		private TMPro.TextMeshProUGUI m_E_RegisterPasswordTitle2TextMeshProUGUI = null;
 		private TMPro.TMP_InputField m_E_RegisterPasswordInputField2TMP_InputField = null;
 		private UnityEngine.UI.Image m_E_RegisterPasswordInputField2Image = null;
 		private TMPro.TextMeshProUGUI m_E_RegisterPasswordPlaceholder2TextMeshProUGUI = null;
 		private UnityEngine.UI.Button m_E_StartRegisterButtonButton = null;
 		private UnityEngine.UI.Image m_E_StartRegisterButtonImage = null;
 		private TMPro.TextMeshProUGUI m_E_StartRegisterButtonTextTextMeshProUGUI = null;
-		private UnityEngine.UI.Button m_E_CutRegisterButtonButton = null;
-		private UnityEngine.UI.Image m_E_CutRegisterButtonImage = null;
-		private TMPro.TextMeshProUGUI m_E_CutRegisterButtonTextTextMeshProUGUI = null;
-		private UnityEngine.UI.Button m_E_CutLoginButtonButton = null;
-		private UnityEngine.UI.Image m_E_CutLoginButtonImage = null;
-		private TMPro.TextMeshProUGUI m_E_CutLoginButtonTextTextMeshProUGUI = null;
-		private UnityEngine.UI.Button m_E_CloseButtonButton = null;
-		private UnityEngine.UI.Image m_E_CloseButtonImage = null;
+		private UnityEngine.UI.Button m_E_RegisterCloseButtonButton = null;
+		private UnityEngine.UI.Image m_E_RegisterCloseButtonImage = null;
 		public Transform uiTransform = null;
 	}
 }
