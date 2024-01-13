@@ -51,6 +51,18 @@ namespace ET.Client
             }) as NetClient2Main_Login;
             return response.PlayerId;
         }
+
+        /// <summary>
+        /// 创建NetClient纤程
+        /// </summary>
+        /// <param name="self"></param>
+        public static async ETTask CreatNetClientFiber(this ClientSenderCompnent self)
+        {
+            //创建NetClient纤程
+            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
+            //创建NetClient的实体id
+            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
+        }
         
         /// <summary>
         /// 异步登录游戏
@@ -61,11 +73,6 @@ namespace ET.Client
         /// <returns></returns>
         public static async ETTask<NetClient2Main_LoginGame> LoginGameAsync(this ClientSenderCompnent self, string account, string password)
         {
-            //创建NetClient纤程
-            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
-            //创建NetClient的实体id
-            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
-
             //两个纤程之间通信使用ProcessInnerSender
             NetClient2Main_LoginGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, new Main2NetClient_LoginGame()
             {
@@ -81,18 +88,29 @@ namespace ET.Client
         /// <param name="account"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static async ETTask<NetClient2Main_LoginGame> RegisterAsync(this ClientSenderCompnent self, string account, string password)
+        public static async ETTask<NetClient2Main_Register> RegisterAsync(this ClientSenderCompnent self, string account, string password1, string password2)
         {
-            //创建NetClient纤程
-            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
-            //创建NetClient的实体id
-            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
-
             //两个纤程之间通信使用ProcessInnerSender
-            NetClient2Main_LoginGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, new Main2NetClient_LoginGame()
+            NetClient2Main_Register response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, new Main2NetClient_Register()
             {
-                OwnerFiberId = self.Fiber().Id, Account = account, Password = password
-            }) as NetClient2Main_LoginGame;
+                OwnerFiberId = self.Fiber().Id, Account = account, Password1 = password1, Password2 = password2
+            }) as NetClient2Main_Register;
+            return response;
+        }
+        
+        /// <summary>
+        /// 进入游戏
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="Zone"></param>
+        /// <returns></returns>
+        public static async ETTask<NetClient2Main_EnterGame> EnterGameAsync(this ClientSenderCompnent self, int Zone, string account, string password)
+        {
+            //两个纤程之间通信使用ProcessInnerSender
+            NetClient2Main_EnterGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, new Main2NetClient_EnterGame()
+            {
+                OwnerFiberId = self.Fiber().Id, Zone = Zone,Account = account,Password = password,Token = self.Root().GetComponent<PlayerComponent>().RealmToken
+            }) as NetClient2Main_EnterGame;
             return response;
         }
 

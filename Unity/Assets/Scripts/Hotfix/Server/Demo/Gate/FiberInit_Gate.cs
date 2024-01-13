@@ -14,9 +14,11 @@ namespace ET.Server
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<MessageSender>();
             root.AddComponent<PlayerComponent>();
-            root.AddComponent<GateSessionKeyComponent>();
+            root.AddComponent<GateSessionKeyComponent>();//Gate网关会话钥匙组件
             root.AddComponent<LocationProxyComponent>();
             root.AddComponent<MessageLocationSenderComponent>();
+
+            root.AddComponent<GateUserMgrComponent>();//Gate用户经理组件
 
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get((int)root.Id);
             root.AddComponent<NetComponent, IPEndPoint, NetworkProtocol>(startSceneConfig.InnerIPPort, NetworkProtocol.UDP);

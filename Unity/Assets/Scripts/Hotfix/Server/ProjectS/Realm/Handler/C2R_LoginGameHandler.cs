@@ -60,6 +60,8 @@ public class C2R_LoginGameHandler: MessageSessionHandler<C2R_LoginGame, R2C_Logi
             return;
         }
 
+        
+        
         using (session.AddComponent<SessionLockingComponent>()) //会话组件锁（因为下面用到了异步逻辑，同一个用户的会话组件重复访问时会抢这把锁）
         {
             //异步逻辑块
@@ -74,20 +76,9 @@ public class C2R_LoginGameHandler: MessageSessionHandler<C2R_LoginGame, R2C_Logi
 
                 if (accountInfos.Count <= 0) //如果没有查询到账号信息
                 {
-                    accountInfosComponent = session.AddComponent<AccountInfosComponent>(); //添加账号信息组件
-                    accountInfo = accountInfosComponent.AddChild<AccountInfo>(); //将该账号信息添加入账号信息组件下
-                    
-                    //TO DO:未来需要把登录和注册分开
-                    accountInfo.Account = request.Account.Trim(); //删除头部和尾部的空字符
-                    accountInfo.Password = request.Password.Trim();
-                    accountInfo.CreateTime = TimeInfo.Instance.ServerNow(); //账号创建时间
-                    accountInfo.AccountTye = (int)AccountTye.General; //普通类型账号
-
-                    await session.GetDirectDB().Save(accountInfo); //将账号信息存入数据库
-
-                    // response.Error = ErrorCode.ERR_Login_AccountNotExist; //该账号未注册
-                    // session.Disconnect().Coroutine(); //延迟1秒后断开连接
-                    // return;
+                    response.Error = ErrorCode.ERR_Login_AccountNotExist; //该账号未注册
+                    session.Disconnect().Coroutine(); //延迟1秒后断开连接
+                    return;
                 }
                 else
                 {
@@ -124,18 +115,21 @@ public class C2R_LoginGameHandler: MessageSessionHandler<C2R_LoginGame, R2C_Logi
             }
         }
 
-        // 随机分配一个Gate
-        StartSceneConfig config = RealmGateAddressHelper.GetGate(session.Zone(), request.Account);
-        Log.Debug($"gate address: {config}");
-
-        // 向gate请求一个key,客户端可以拿着这个key连接gate
-        G2R_GetLoginKey g2RGetLoginKey = (G2R_GetLoginKey)await session.Fiber().Root.GetComponent<MessageSender>()
-                .Call(config.ActorId, new R2G_GetLoginKey() { Account = request.Account });
-
-        response.Address = config.InnerIPPort.ToString();
-        response.Key = g2RGetLoginKey.Key;
-        response.GateId = g2RGetLoginKey.GateId;
-
+        //返回游戏区服列表
+        foreach (StartZoneConfig startZoneConfig in StartZoneConfigCategory.Instance.GetAll().Values)
+        {
+            if (startZoneConfig.ZoneTpye != (int)ZoneType.Game)//如果不为游戏区服直接略过
+            {
+                continue;
+            }
+            
+            response.ServerListInfosProto.Add(new ServerListInfoProto(){ Zone = startZoneConfig.Id,Name = startZoneConfig.Name,Status = RandomGenerator.RandomNumber(0,2)});
+        }
+                
+        string Token = TimeInfo.Instance.ServerNow().ToString() + RandomGenerator.RandInt64();//随机生成一个令牌
+        session.Root().GetComponent<RealmTokenComponent>().Add(request.Account, Token);//在Gate网关钥匙组件上添加该账号,等待20秒后移除该账号的登录钥匙
+        response.Token = Token;
+        
         session.Disconnect().Coroutine(); //延迟1秒后断开连接
     }
 }

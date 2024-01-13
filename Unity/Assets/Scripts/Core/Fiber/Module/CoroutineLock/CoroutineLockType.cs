@@ -14,6 +14,9 @@ namespace ET
         public const int  LoadUIBaseWindows = 8;
 
         public const int LoginAccount = 10;//登录账号的协程锁类型
+        public const int RegisterAccount = 11;//注册账号的协程锁类型
+        public const int LoginZone = 12;//登录区服的协程锁类型
+        public const int GateUserLock = 13;//Gate用户的协程锁类型
 
         public const int Max = 100; // 这个必须最大
     }

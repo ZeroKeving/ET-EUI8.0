@@ -176,3 +176,26 @@ message M2M_UnitTransferResponse // IResponse
 	int32 Error = 2;
 	string Message = 3;
 }
+
+//登录Gate信息
+message LoginGateInfoProto
+{
+	string Account = 1;//账号
+	int32 Zone = 2;//游戏区服
+}
+
+//ResponseType G2R_GetLoginGameKey
+message R2G_GetLoginGameKey // IRequest
+{
+	int32 RpcId = 1;
+	LoginGateInfoProto Info = 2;//登录Gate信息
+}
+
+message G2R_GetLoginGameKey // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 Key = 4;
+	int64 GateId = 5;
+}

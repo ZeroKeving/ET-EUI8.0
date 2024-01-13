@@ -1,6 +1,7 @@
 {"dict": [
-[1, {"_t":"StartZoneConfig","_id":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET1"}],
-[2, {"_t":"StartZoneConfig","_id":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET2"}],
-[3, {"_t":"StartZoneConfig","_id":3,"DBConnection":"mongodb://127.0.0.1","DBName":"ET3"}],
-[100, {"_t":"StartZoneConfig","_id":100,"DBConnection":"mongodb://127.0.0.1","DBName":"ET100"}],
+[1, {"_t":"StartZoneConfig","_id":1,"Name":"国服","ZoneTpye":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET1"}],
+[2, {"_t":"StartZoneConfig","_id":2,"Name":"美服","ZoneTpye":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET2"}],
+[100, {"_t":"StartZoneConfig","_id":100,"Name":"Zone100","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET100"}],
+[200, {"_t":"StartZoneConfig","_id":200,"Name":"Zone200","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET200"}],
+[300, {"_t":"StartZoneConfig","_id":300,"Name":"Zone300","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET300"}],
 ]}

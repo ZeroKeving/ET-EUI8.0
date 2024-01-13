@@ -729,6 +729,98 @@ namespace ET
 
 	}
 
+//登录Gate信息
+	[Message(InnerMessage.LoginGateInfoProto)]
+	[MemoryPackable]
+	public partial class LoginGateInfoProto: MessageObject
+	{
+		public static LoginGateInfoProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(LoginGateInfoProto), isFromPool) as LoginGateInfoProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public string Account { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Zone { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Account = default;
+			this.Zone = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(G2R_GetLoginGameKey))]
+	[Message(InnerMessage.R2G_GetLoginGameKey)]
+	[MemoryPackable]
+	public partial class R2G_GetLoginGameKey: MessageObject, IRequest
+	{
+		public static R2G_GetLoginGameKey Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(R2G_GetLoginGameKey), isFromPool) as R2G_GetLoginGameKey; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public LoginGateInfoProto Info { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Info = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.G2R_GetLoginGameKey)]
+	[MemoryPackable]
+	public partial class G2R_GetLoginGameKey: MessageObject, IResponse
+	{
+		public static G2R_GetLoginGameKey Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(G2R_GetLoginGameKey), isFromPool) as G2R_GetLoginGameKey; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long Key { get; set; }
+
+		[MemoryPackOrder(4)]
+		public long GateId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.Key = default;
+			this.GateId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class InnerMessage
 	{
 		 public const ushort ObjectQueryRequest = 20002;
@@ -754,5 +846,8 @@ namespace ET
 		 public const ushort ObjectQueryResponse = 20022;
 		 public const ushort M2M_UnitTransferRequest = 20023;
 		 public const ushort M2M_UnitTransferResponse = 20024;
+		 public const ushort LoginGateInfoProto = 20025;
+		 public const ushort R2G_GetLoginGameKey = 20026;
+		 public const ushort G2R_GetLoginGameKey = 20027;
 	}
 }

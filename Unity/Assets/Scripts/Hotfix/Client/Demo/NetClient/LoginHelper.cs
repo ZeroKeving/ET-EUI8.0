@@ -1,7 +1,9 @@
-using CommandLine;
+using System;
 
 namespace ET.Client
 {
+    [FriendOf(typeof(ServerInfosComponent))]
+    [FriendOf(typeof(ServerInfo))]
     public static class LoginHelper
     {
         /// <summary>
@@ -20,7 +22,7 @@ namespace ET.Client
             long playerId = await clientSenderCompnent.LoginAsync(account, password);
 
             root.GetComponent<PlayerComponent>().MyId = playerId;
-            
+
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
         }
 
@@ -32,47 +34,71 @@ namespace ET.Client
         /// <param name="password"></param>
         public static async ETTask<int> LoginGame(Scene root, string account, string password)
         {
-            //删除客户端通讯组件又重新添加客户端通信组件，是为了保证每次登录都要创建一个全新的登录连接
-            root.RemoveComponent<ClientSenderCompnent>();
-            ClientSenderCompnent clientSenderCompnent = root.AddComponent<ClientSenderCompnent>();
-
             //从服务器获取玩家登录信息
-            NetClient2Main_LoginGame response = await clientSenderCompnent.LoginGameAsync(account, password);
+            NetClient2Main_LoginGame response = await root.GetComponent<ClientSenderCompnent>().LoginGameAsync(account, password);
 
-            if (response.Error != ErrorCode.ERR_Success)//如果登录失败，则返回错误码
+            if (response.Error != ErrorCode.ERR_Success) //如果登录失败，则返回错误码
             {
-                Log.Error("response Error:"+response.Error);
+                Log.Error("response Error:" + response.Error);
                 return response.Error;
             }
 
-            root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
-            
-            await EventSystem.Instance.PublishAsync(root, new LoginFinish());
-            
+            root.GetComponent<ServerInfosComponent>().ClearServerInfo(); //先清空所有游戏区服
+            foreach (ServerListInfoProto serverListInfoProto in response.ServerListInfosProto) //遍历添加所有游戏区服
+            {
+                root.GetComponent<ServerInfosComponent>().AddServerInfo(serverListInfoProto);
+            }
+
+            root.GetComponent<PlayerComponent>().RealmToken = response.Token;
+
             return ErrorCode.ERR_Success;
         }
-        
+
         /// <summary>
         /// 注册
         /// </summary>
         /// <param name="root"></param>
         /// <param name="account"></param>
         /// <param name="password"></param>
-        public static async ETTask<int> Register(Scene root, string account, string password)
+        public static async ETTask<int> Register(Scene root, string account, string password1, string password2)
         {
-            //删除客户端通讯组件又重新添加客户端通信组件，是为了保证每次登录都要创建一个全新的登录连接
-            root.RemoveComponent<ClientSenderCompnent>();
-            ClientSenderCompnent clientSenderCompnent = root.AddComponent<ClientSenderCompnent>();
-
             //从服务器获取玩家注册信息
-            NetClient2Main_LoginGame response = await clientSenderCompnent.RegisterAsync(account, password);
+            NetClient2Main_Register response = await root.GetComponent<ClientSenderCompnent>().RegisterAsync(account, password1, password2);
 
-            if (response.Error != ErrorCode.ERR_Success)//如果注册失败，则返回错误码
+            if (response.Error != ErrorCode.ERR_Success) //如果注册失败，则返回错误码
             {
-                Log.Error("response Error:"+response.Error);
+                Log.Error("response Error:" + response.Error);
                 return response.Error;
             }
-            
+
+            return ErrorCode.ERR_Success;
+        }
+
+        /// <summary>
+        /// 进入游戏
+        /// </summary>
+        /// <returns></returns>
+        public static async ETTask<int> EnterGame(Scene root, string account, string password)
+        {
+            ServerInfosComponent serverInfosComponent = root.GetComponent<ServerInfosComponent>();
+            if (serverInfosComponent == null)
+            {
+                return ErrorCode.ERR_Zone_ZoneNotFound; //未找到区服信息
+            }
+
+            //进入游戏
+            NetClient2Main_EnterGame response = await root.GetComponent<ClientSenderCompnent>().EnterGameAsync(serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].ServerZone,account,password);
+
+            if (response.Error != ErrorCode.ERR_Success) //如果进入游戏失败，则返回错误码
+            {
+                Log.Error("response Error:" + response.Error);
+                return response.Error;
+            }
+
+            root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
+
+            await EventSystem.Instance.PublishAsync(root, new LoginFinish());
+
             return ErrorCode.ERR_Success;
         }
     }

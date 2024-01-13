@@ -1,19 +1,22 @@
 ﻿namespace ET.Server
 {
+    /// <summary>
+    /// Gate会话钥匙组件系统
+    /// </summary>
     [FriendOf(typeof(GateSessionKeyComponent))]
     public static partial class GateSessionKeyComponentSystem
     {
-        public static void Add(this GateSessionKeyComponent self, long key, string account)
+        public static void Add(this GateSessionKeyComponent self, long key, LoginGateInfoProto loginGateInfoProto)
         {
-            self.sessionKey.Add(key, account);
-            self.TimeoutRemoveKey(key).Coroutine();
+            self.sessionKey.Add(key, loginGateInfoProto);
+            self.TimeoutRemoveKey(key).Coroutine();//20秒后移除该账号的登录钥匙
         }
 
-        public static string Get(this GateSessionKeyComponent self, long key)
+        public static LoginGateInfoProto Get(this GateSessionKeyComponent self, long key)
         {
-            string account = null;
-            self.sessionKey.TryGetValue(key, out account);
-            return account;
+            LoginGateInfoProto loginGateInfoProto = null;
+            self.sessionKey.TryGetValue(key, out loginGateInfoProto);
+            return loginGateInfoProto;
         }
 
         public static void Remove(this GateSessionKeyComponent self, long key)

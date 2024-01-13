@@ -5,7 +5,11 @@
     {
         protected override async ETTask Run(Scene entity, NetClient2Main_SessionDispose message)
         {
-            Log.Error($"session dispose, error: {message.Error}");
+            if (message.Error < 400000)//小于400000时才报错
+            {
+                Log.Error($"session dispose, error: {message.Error}");
+            }
+            
             await ETTask.CompletedTask;
         }
     }

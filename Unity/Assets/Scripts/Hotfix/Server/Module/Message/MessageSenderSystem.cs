@@ -64,7 +64,7 @@ namespace ET.Server
             }
             Fiber fiber = self.Fiber();
             
-            if (fiber.Process == actorId.Process)
+            if (fiber.Process == actorId.Process)//首先Fiber的进程id和所要发送的消息者进程id进行比较,如果在同进程,不同纤程中
             {
                 return await fiber.Root.GetComponent<ProcessInnerSender>().Call(actorId, rpcId, request, needException: needException);
             }

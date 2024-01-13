@@ -1,9 +1,11 @@
+using System;
+
 namespace ET.Server;
 
 /// <summary>
 /// 断开连接助手类
 /// </summary>
-public static class DisconnectHelper
+public static class LoginHelper
 {
     /// <summary>
     /// 针对会话进行扩展，延迟1秒后断开连接
@@ -26,5 +28,20 @@ public static class DisconnectHelper
         }
         
         self.Dispose();
+    }
+
+    /// <summary>
+    /// 获取Gate用户协程锁
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
+    public static async ETTask<CoroutineLock> GetGateUserLock(Scene root,string account)
+    {
+        if (string.IsNullOrEmpty(account))
+        {
+            throw new Exception("LoginHelper : GetGateUserLock but account is Null !");
+        }
+
+        return await root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.GateUserLock, account.GetLongHashCode());
     }
 }

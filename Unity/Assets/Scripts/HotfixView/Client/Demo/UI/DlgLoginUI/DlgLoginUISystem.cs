@@ -21,10 +21,10 @@ namespace ET.Client
         /// <param name="self"></param>
         public static void RegisterUIEvent(this DlgLoginUI self)
         {
-            self.RegisterCloseEvent<DlgLoginUI>(self.View.E_CloseButtonButton);//关闭按钮注册关闭事件
-            self.View.E_CutRegisterButtonButton.AddListener(self.OnCutRegisterClickHandler);//切换注册按钮监听
-            self.View.E_CutLoginButtonButton.AddListener(self.OnCutLoginClickHandler);//切换登录按钮监听
-            self.View.E_StartRegisterButtonButton.AddListenerAsync(() => { return self.OnStartRegisterClickHandler();},self.Root());//异步监听注册按键
+            self.RegisterCloseEvent<DlgLoginUI>(self.View.E_CloseButtonButton); //关闭按钮注册关闭事件
+            self.View.E_CutRegisterButtonButton.AddListener(self.OnCutRegisterClickHandler); //切换注册按钮监听
+            self.View.E_CutLoginButtonButton.AddListener(self.OnCutLoginClickHandler); //切换登录按钮监听
+            self.View.E_StartRegisterButtonButton.AddListenerAsync(() => { return self.OnStartRegisterClickHandler(); }, self.Root()); //异步监听注册按键
             self.View.E_LoginButtonButton.AddListenerAsync(() => { return self.OnLoginClickHandler(); }, self.Root()); //异步监听登录按键
         }
 
@@ -33,11 +33,11 @@ namespace ET.Client
             //从本地获取默认登录账号信息
             self.View.E_LoginUserTMP_InputField.text = PlayerPrefs.GetString("Account", string.Empty);
             self.View.E_LoginPasswordTMP_InputField.text = PlayerPrefs.GetString("Password", string.Empty);
-            
-            self.PlayAnimation();//播放界面动画
+
+            self.PlayAnimation(); //播放界面动画
             self.Refresh();
-            self.View.EG_RegisterRectTransform.SetVisible(false);//隐藏注册界面
-            self.View.E_CutLoginButtonButton.SetVisible(false);//隐藏切换登录按钮
+            self.View.EG_RegisterRectTransform.SetVisible(false); //隐藏注册界面
+            self.View.E_CutLoginButtonButton.SetVisible(false); //隐藏切换登录按钮
         }
 
         /// <summary>
@@ -78,12 +78,12 @@ namespace ET.Client
                 self.View.E_LoginButtonButton.interactable = true;
                 self.View.E_LoginTextTextMeshProUGUI.color = new Color(1, 246f / 255f, 229f / 255f, 1);
             }
-            
+
             // 判断用户账号密码格式是否输入正确，两遍密码是否相同
             if (!Regex.IsMatch(self.View.E_RegisterAccountInputFieldTMP_InputField.text.Trim(), @"^(?=.*[0-9A-Za-z].*).{6,15}$") ||
                 !Regex.IsMatch(self.View.E_RegisterPasswordInputFieldTMP_InputField.text.Trim(), @"^(?=.*[0-9A-Za-z].*).{6,15}$") ||
                 (self.View.E_RegisterPasswordInputFieldTMP_InputField.text != self.View.E_RegisterPasswordInputField2TMP_InputField.text)
-                ) 
+               )
             {
                 self.View.E_StartRegisterButtonButton.interactable = false;
             }
@@ -108,33 +108,33 @@ namespace ET.Client
         /// <param name="self"></param>
         public static async ETTask OnLoginClickHandler(this DlgLoginUI self)
         {
-            await self.Login(self.View.E_LoginUserTMP_InputField.text, self.View.E_LoginPasswordTMP_InputField.text);//登录
+            await self.Login(self.View.E_LoginUserTMP_InputField.text, self.View.E_LoginPasswordTMP_InputField.text); //登录
         }
 
         /// <summary>
         /// 登录
         /// </summary>
-        public static async ETTask Login(this DlgLoginUI self,string account,string password)
+        public static async ETTask Login(this DlgLoginUI self, string account, string password)
         {
             try
             {
                 //显示登录之后的页面逻辑
 
-                int errorCode = await LoginHelper.LoginGame(self.Root(), account, password);//登录游戏
+                int errorCode = await LoginHelper.LoginGame(self.Root(), account, password); //登录游戏
 
-                if (errorCode != ErrorCode.ERR_Success)//如果获取的不是一个成功的错误码
+                if (errorCode != ErrorCode.ERR_Success) //如果获取的不是一个成功的错误码
                 {
-                    UIPopUpHelper.CreateErrorWindow(self.Root(),errorCode);//创建错误弹窗
+                    UIPopUpHelper.CreateErrorWindow(self.Root(), errorCode); //创建错误弹窗
                     return;
                 }
-                
+
                 //登录成功后，在本地保留默认登录账号信息
-                PlayerPrefs.SetString("Account",account);
-                PlayerPrefs.SetString("Password",password);
+                PlayerPrefs.SetString("Account", account);
+                PlayerPrefs.SetString("Password", password);
 
                 UIComponent uIComponent = self.Root().GetComponent<UIComponent>();
-                uIComponent.GetDlgLogic<DlgStartGameUI>().IsLogin = true;//设置为登录成功状态
-                uIComponent.GetDlgLogic<DlgStartGameUI>().Refresh();//刷新开始界面
+                uIComponent.GetDlgLogic<DlgStartGameUI>().IsLogin = true; //设置为登录成功状态
+                uIComponent.GetDlgLogic<DlgStartGameUI>().Refresh(); //刷新开始界面
                 uIComponent.CloseWindow(WindowID.WindowID_LoginUI); //关闭登录窗口
             }
             catch (Exception e)
@@ -151,17 +151,24 @@ namespace ET.Client
         {
             try
             {
-                //显示登录之后的页面逻辑
+                //显示注册之后的页面逻辑
 
-                int errorCode = await LoginHelper.Register(self.Root(), self.View.E_RegisterAccountInputFieldTMP_InputField.text, self.View.E_RegisterPasswordInputFieldTMP_InputField.text);//登录游戏
+                int errorCode = await LoginHelper.Register(self.Root(), self.View.E_RegisterAccountInputFieldTMP_InputField.text,
+                    self.View.E_RegisterPasswordInputFieldTMP_InputField.text,
+                    self.View.E_RegisterPasswordInputField2TMP_InputField.text); //登录游戏
 
-                if (errorCode != ErrorCode.ERR_Success)//如果获取的不是一个成功的错误码
+                if (errorCode != ErrorCode.ERR_Success) //如果获取的不是一个成功的错误码
                 {
-                    UIPopUpHelper.CreateErrorWindow(self.Root(),errorCode);//创建错误弹窗
+                    UIPopUpHelper.CreateErrorWindow(self.Root(), errorCode); //创建错误弹窗
                     return;
                 }
 
-                self.OnCutLoginClickHandler();//切换到登录界面
+                
+                UIComponent uIComponent = self.Root().GetComponent<UIComponent>();
+                uIComponent.GetDlgLogic<DlgStartGameUI>().IsLogin = false; //设置为未登录状态
+                uIComponent.GetDlgLogic<DlgStartGameUI>().Refresh(); //刷新开始界面
+                
+                self.OnCutLoginClickHandler(); //切换到登录界面
             }
             catch (Exception e)
             {
@@ -175,23 +182,22 @@ namespace ET.Client
         /// <param name="self"></param>
         public static void OnCutRegisterClickHandler(this DlgLoginUI self)
         {
-            self.View.EG_RegisterRectTransform.SetVisible(true);//显示注册界面
-            self.View.EG_PanelRectTransform.SetVisible(false);//隐藏登录界面
-            self.View.E_CutLoginButtonButton.SetVisible(true);//显示切换登录按钮
-            self.View.E_CutRegisterButtonButton.SetVisible(false);//隐藏切换注册按钮
+            self.View.EG_RegisterRectTransform.SetVisible(true); //显示注册界面
+            self.View.EG_PanelRectTransform.SetVisible(false); //隐藏登录界面
+            self.View.E_CutLoginButtonButton.SetVisible(true); //显示切换登录按钮
+            self.View.E_CutRegisterButtonButton.SetVisible(false); //隐藏切换注册按钮
         }
-        
+
         /// <summary>
         /// 切换登录按钮处理
         /// </summary>
         /// <param name="self"></param>
         public static void OnCutLoginClickHandler(this DlgLoginUI self)
         {
-            self.View.EG_PanelRectTransform.SetVisible(true);//显示登录界面
-            self.View.EG_RegisterRectTransform.SetVisible(false);//隐藏注册界面
-            self.View.E_CutRegisterButtonButton.SetVisible(true);//显示切换注册按钮
-            self.View.E_CutLoginButtonButton.SetVisible(false);//隐藏切换登录按钮
+            self.View.EG_PanelRectTransform.SetVisible(true); //显示登录界面
+            self.View.EG_RegisterRectTransform.SetVisible(false); //隐藏注册界面
+            self.View.E_CutRegisterButtonButton.SetVisible(true); //显示切换注册按钮
+            self.View.E_CutLoginButtonButton.SetVisible(false); //隐藏切换登录按钮
         }
-        
     }
 }

@@ -9,4 +9,5 @@
 [8, {"_t":"UIMultilingualConfig","_id":8,"CN":"再次输入密码","EN":"Reenter Password"}],
 [9, {"_t":"UIMultilingualConfig","_id":9,"CN":"请输入6到15位的数字或字母......","EN":"Please enter 6 to 15 digits or letters......"}],
 [10, {"_t":"UIMultilingualConfig","_id":10,"CN":"登录","EN":"Login"}],
+[11, {"_t":"UIMultilingualConfig","_id":11,"CN":"返回登录","EN":"Back to login"}],
 ]}
