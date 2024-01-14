@@ -19,6 +19,7 @@ namespace ET.Server
             root.AddComponent<MessageLocationSenderComponent>();
 
             root.AddComponent<GateUserMgrComponent>();//Gate用户经理组件
+            root.AddComponent<DBManagerComponent>();//数据库管理组件
 
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get((int)root.Id);
             root.AddComponent<NetComponent, IPEndPoint, NetworkProtocol>(startSceneConfig.InnerIPPort, NetworkProtocol.UDP);

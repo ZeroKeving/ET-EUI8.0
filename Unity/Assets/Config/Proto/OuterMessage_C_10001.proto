@@ -315,5 +315,8 @@ message G2C_LoginGameGate // ISessionResponse
 	int64 PlayerId = 4;
 }
 
-
+message ALL2C_Disconnect // IMessage
+{
+	int32 Error = 1;
+}
 

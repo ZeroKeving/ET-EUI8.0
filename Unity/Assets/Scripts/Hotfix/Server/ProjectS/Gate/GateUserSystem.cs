@@ -15,6 +15,6 @@ public static partial class GateUserSystem
     [EntitySystem]
     private static void Destroy(this ET.Server.GateUser self)
     {
-        
+
     }
 }

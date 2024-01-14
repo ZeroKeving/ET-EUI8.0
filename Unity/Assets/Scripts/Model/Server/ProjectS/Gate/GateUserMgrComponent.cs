@@ -6,7 +6,6 @@ namespace ET.Server;
 /// Gate用户经理组件
 /// </summary>
 [ComponentOf(typeof(Scene))]
-[ChildOf(typeof(GateUser))]
 public class GateUserMgrComponent: Entity,IAwake,IDestroy
 {
     public Dictionary<string, GateUser> Users = new Dictionary<string, GateUser>();

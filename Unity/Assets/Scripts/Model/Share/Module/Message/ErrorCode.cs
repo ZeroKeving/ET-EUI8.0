@@ -38,6 +38,7 @@ namespace ET
         public const int ERR_Gate_NotLoginGateInfo = 200020;//未找到登录Gate信息
         
         //300000以上为提示码
+        public const int Hint_Login_MultiLogin = 300001;//被顶号了（您的账号被顶下线了）
         
         //400000以上为告知码，不做任何提示处理
         public const int Inform_NewSession = 400001;//新建连接

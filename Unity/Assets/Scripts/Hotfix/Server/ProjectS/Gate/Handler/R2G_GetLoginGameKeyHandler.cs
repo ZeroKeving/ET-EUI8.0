@@ -14,7 +14,18 @@ public class R2G_GetLoginGameKeyHandler : MessageHandler<Scene, R2G_GetLoginGame
         gateUserMgrComponent.Users.TryGetValue(request.Info.Account, out GateUser gateUser);//获取该账号的Gate用户
         if (gateUser != null)//如果能获取到用户，说明有其他客户端使用同样的账号登录
         {
-            //TO DO 执行下线顶号逻辑
+            //执行下线顶号逻辑
+            long instanceId = gateUser.InstanceId;
+
+            using (await gateUser.GetGateUserLock())
+            {
+                if (instanceId != gateUser.InstanceId)
+                {
+                    return;
+                }
+                
+                gateUser.OfflineSession();//对外下线
+            }
         }
 
         GateSessionKeyComponent gateSessionKeyComponent = scene.GetComponent<GateSessionKeyComponent>();
