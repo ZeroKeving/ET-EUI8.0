@@ -13,14 +13,15 @@ namespace ET.Client
     [FriendOf(typeof(DlgStartGameUI))]
     [FriendOf(typeof(ServerInfosComponent))]
     [FriendOf(typeof(ServerInfo))]
+    [FriendOfAttribute(typeof(ET.Client.RoleInfosComponent))]
     public static class DlgStartGameUISystem
     {
         public static void RegisterUIEvent(this DlgStartGameUI self)
         {
-            self.View.E_StartGameButtonButton.AddListenerAsync(() => { return self.OnStartGameClickHandler();},self.Root()); //开始游戏按钮监听
+            self.View.E_StartGameButtonButton.AddListenerAsync(() => { return self.OnStartGameClickHandler(); }, self.Root()); //开始游戏按钮监听
             self.View.E_AccountButtonButton.AddListener(self.OnAccountButtonClickHandler); //切换账号按钮监听
             self.View.E_SetButtonButton.AddListener(self.OnSetButtonClickHandler); //设置按钮监听
-            self.View.E_ServerInfoButton.AddListener(self.OnServerInfoClickHandler); //区服按钮监听
+            self.View.E_ServerChangeButtonButton.AddListener(self.OnServerInfoClickHandler); //区服按钮监听
             self.View.E_SeverListCloseButtonButton.AddListener(self.OnSeverListCloseClickHandler); //关闭区服选择界面按钮监听
             self.View.ELoopScrollList_ServerInfoLoopVerticalScrollRect.AddItemRefreshListener((Transform transform, int index) =>
             {
@@ -69,25 +70,33 @@ namespace ET.Client
                 try
                 {
                     //进入游戏
-                    int errorCode = await LoginHelper.EnterGame(self.Root(),PlayerPrefs.GetString("Account"), PlayerPrefs.GetString("Password"));
+                    int errorCode = await LoginHelper.EnterGame(self.Root(), PlayerPrefs.GetString("Account"), PlayerPrefs.GetString("Password"));
 
                     if (errorCode != ErrorCode.ERR_Success) //如果获取的不是一个成功的错误码
                     {
                         UIPopUpHelper.CreateErrorWindow(self.Root(), errorCode); //创建错误弹窗
-                        
+
                         uiComponent.GetDlgLogic<DlgStartGameUI>().IsLogin = false; //设置为未登录状态
                         uiComponent.GetDlgLogic<DlgStartGameUI>().Refresh(); //刷新开始界面
                         return;
                     }
 
-                    uiComponent.ShowWindow(WindowID.WindowID_InitialInterface); //显示游戏初始界面
+                    if (self.Root().GetComponent<RoleInfosComponent>().RoleInfos.Count == 0)//如果该账号下没有角色信息
+                    {
+                        uiComponent.ShowWindow(WindowID.WindowID_CreateRole); //显示创建角色界面
+                    }
+                    else//如果该账号下有角色信息
+                    {
+                        uiComponent.ShowWindow(WindowID.WindowID_InitialInterface); //显示游戏初始界面
+                    }
+
                     uiComponent.CloseWindow(WindowID.WindowID_StartGameUI); //关闭游戏开始界面
                 }
                 catch (Exception e)
                 {
                     Log.Error(e.ToString());
                 }
-                
+
             }
             else
             {
@@ -177,9 +186,9 @@ namespace ET.Client
         public static void ShowNotLogin(this DlgStartGameUI self)
         {
             self.View.E_AccountButtonButton.SetVisible(false); //隐藏账号切换列表
-            self.View.E_ServerInfoButton.SetVisible(false); //隐藏区服选择列表
+            self.View.E_ServerChangeButtonButton.SetVisible(false); //隐藏区服选择列表
             self.View.EG_SeverListPanelRectTransform.SetVisible(false); //隐藏区服显示列表
-            self.View.E_StartGameTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1]); //显示为登录游戏
+            self.View.E_StartGameTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000001]); //显示为登录游戏
         }
 
         /// <summary>
@@ -189,17 +198,18 @@ namespace ET.Client
         public static void ShowLogin(this DlgStartGameUI self)
         {
             self.View.E_AccountButtonButton.SetVisible(true); //显示账号切换列表
-            self.View.E_ServerInfoButton.SetVisible(true); //显示区服选择列表
+            self.View.E_ServerChangeButtonButton.SetVisible(true); //显示区服选择列表
+            self.View.E_ServerChangeTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000012]); // “切换区服”中英文切换
             self.View.EG_SeverListPanelRectTransform.SetVisible(false); //隐藏区服显示列表
-            self.View.E_StartGameTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[2]); //显示为开始游戏
+            self.View.E_StartGameTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000002]); //显示为开始游戏
             ServerInfosComponent serverInfosComponent = self.Root().GetComponent<ServerInfosComponent>();//获取区服信息
-            self.View.E_ServerInfoTextTextMeshProUGUI.SetText(serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].ServerName);//显示选中区服名称
-            self.View.E_ServerStatusImage.color = serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].Status == (int)ServerStatus.Active? Color.green : Color.gray;//对该区服的状态设置颜色
-            
+            self.View.E_ServerInfoTextTextMeshProUGUI.SetText(StartZoneConfigCategory.Instance.TextDict[serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].ServerZone]);//显示选中区服名称
+            self.View.E_ServerStatusImage.color = serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].Status == (int)ServerStatus.Active ? Color.cyan : Color.gray;//对该区服的状态设置颜色
+
             //显示游戏区服滑动列表项
             int count = self.Root().GetComponent<ServerInfosComponent>().ServerInfosList.Count;//获取游戏区服信息
-            self.AddUIScrollItems(ref self.scrollItemServersDict,count);//添加滑动列表项
-            self.View.ELoopScrollList_ServerInfoLoopVerticalScrollRect.SetVisible(true,count);//将其显示出来
+            self.AddUIScrollItems(ref self.scrollItemServersDict, count);//添加滑动列表项
+            self.View.ELoopScrollList_ServerInfoLoopVerticalScrollRect.SetVisible(true, count);//将其显示出来
         }
 
         /// <summary>
@@ -215,24 +225,47 @@ namespace ET.Client
             if (serverInfosComponent.CurrentServerIndex == index)//显示区服选中
             {
                 scrollItemServer.E_ServerButtonButton.Select();
+                scrollItemServer.E_ServerCurrentTextTextMeshProUGUI.gameObject.SetActive(true); // 显示当前区服label
+                scrollItemServer.E_ServerButtonButton.image.sprite = scrollItemServer.E_ServerSelectImage.sprite; //显示选中的按钮背景
+                scrollItemServer.E_ServerTextTextMeshProUGUI.color = new Color(21f / 255f, 27f / 255f, 40f / 255f, 1); // 切换选中按钮的文字颜色
             }
-            
-            scrollItemServer.E_ServerTextTextMeshProUGUI.SetText(serverInfosComponent.ServerInfosList[index].ServerName);//显示区服名称
-            scrollItemServer.E_ServerStatusImage.color = serverInfosComponent.ServerInfosList[index].Status == (int)ServerStatus.Active? Color.green : Color.gray;//对该区服的状态设置颜色
-            
-            scrollItemServer.E_ServerButtonButton.AddListenerWithId(self.OnSelectSeverInfoHandler,index);//游戏区服按钮有参数的监听
+            else // 未选中的区服
+            {
+                scrollItemServer.E_ServerButtonButton.image.sprite = scrollItemServer.E_ServerUnSelectImage.sprite; //显示选中的按钮背景
+                scrollItemServer.E_ServerTextTextMeshProUGUI.color = new Color(208f / 255f, 234f / 255f, 238f / 255f, 1); // 切换选中按钮的文字颜色
+                scrollItemServer.E_ServerCurrentTextTextMeshProUGUI.gameObject.SetActive(false); // 隐藏当前区服label
+            }
+
+            scrollItemServer.E_ServerTextTextMeshProUGUI.SetText(StartZoneConfigCategory.Instance.TextDict[serverInfosComponent.ServerInfosList[index].ServerZone]);//显示区服名称
+            scrollItemServer.E_ServerStatusImage.color = serverInfosComponent.ServerInfosList[index].Status == (int)ServerStatus.Active ? Color.cyan : Color.gray;//对该区服的状态设置颜色
+
+            scrollItemServer.E_ServerButtonButton.AddListenerWithId(self.OnSelectSeverInfoHandler, index);//游戏区服按钮有参数的监听
+        }
+
+        /// <summary>
+        /// 刷新进入游戏旁的服务器状态
+        /// </summary>
+        /// <param name="self"></param>
+        public static void RefreshServer(this DlgStartGameUI self)
+        {
+            ServerInfosComponent serverInfosComponent = self.Root().GetComponent<ServerInfosComponent>();//获取区服信息
+            self.View.E_ServerInfoTextTextMeshProUGUI.SetText(StartZoneConfigCategory.Instance.TextDict[serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].ServerZone]);//显示选中区服名称
+            self.View.E_ServerStatusImage.color =
+                    serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].Status == (int)ServerStatus.Active ? Color.cyan
+                            : Color.gray;
         }
 
         /// <summary>
         /// 选择区服按键处理
         /// </summary>
         /// <param name="self"></param>
-        public static void OnSelectSeverInfoHandler(this DlgStartGameUI self,int Index)
+        public static void OnSelectSeverInfoHandler(this DlgStartGameUI self, int Index)
         {
             self.Root().GetComponent<ServerInfosComponent>().CurrentServerIndex = Index;//设置当前选中区服
             self.View.ELoopScrollList_ServerInfoLoopVerticalScrollRect.RefreshCells();//刷新列表项
+            self.RefreshServer();
         }
 
-        
+
     }
 }

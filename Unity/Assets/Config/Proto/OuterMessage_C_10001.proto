@@ -238,7 +238,6 @@ message G2C_Benchmark // ISessionResponse
 message ServerListInfoProto
 {
 	int32 Zone = 1;//区服id
-	string Name = 2;//区服名字
 	int32 Status = 3;//区服状态
 }
 
@@ -311,8 +310,6 @@ message G2C_LoginGameGate // ISessionResponse
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
-
-	int64 PlayerId = 4;
 }
 
 message ALL2C_Disconnect // IMessage
@@ -320,3 +317,24 @@ message ALL2C_Disconnect // IMessage
 	int32 Error = 1;
 }
 
+message GetRoleInfoProto
+{
+	int64 UnitId = 1;//游戏角色id
+	string Name = 2;//游戏角色名称
+	int32 Level = 3;//游戏角色等级
+}
+
+//ResponseType G2C_GateRoles
+message C2G_GateRoles // ISessionRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_GateRoles // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	repeated GetRoleInfoProto Roles = 4;//游戏角色列表
+}

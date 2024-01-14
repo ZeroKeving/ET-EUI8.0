@@ -36,6 +36,8 @@ namespace ET
         public const int ERR_Zone_LoginTimeout = 200019;//找不到登录令牌（登录超时，请玩家重新登录）
         
         public const int ERR_Gate_NotLoginGateInfo = 200020;//未找到登录Gate信息
+        public const int ERR_Gate_NoGateUser = 200021;//未找到登录Gate用户
+        public const int ERR_Gate_NoAccountZoneDB = 200022;//未找到区服账号信息
         
         //300000以上为提示码
         public const int Hint_Login_MultiLogin = 300001;//被顶号了（您的账号被顶下线了）

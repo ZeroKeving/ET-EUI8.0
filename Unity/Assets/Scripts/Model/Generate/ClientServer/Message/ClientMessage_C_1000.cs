@@ -276,16 +276,12 @@ namespace ET
 		[MemoryPackOrder(2)]
 		public string Message { get; set; }
 
-		[MemoryPackOrder(3)]
-		public long PlayerId { get; set; }
-
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
-			this.PlayerId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}

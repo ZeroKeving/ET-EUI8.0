@@ -115,12 +115,87 @@ namespace ET.Client
      		}
      	}
 
+		public TMPro.TextMeshProUGUI E_ServerCurrentTextTextMeshProUGUI
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if (this.isCacheNode)
+     			{
+     				if( this.m_E_ServerCurrentTextTextMeshProUGUI == null )
+     				{
+		    			this.m_E_ServerCurrentTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_ServerButton/E_ServerCurrentText");
+     				}
+     				return this.m_E_ServerCurrentTextTextMeshProUGUI;
+     			}
+     			else
+     			{
+		    		return UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_ServerButton/E_ServerCurrentText");
+     			}
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_ServerSelectImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if (this.isCacheNode)
+     			{
+     				if( this.m_E_ServerSelectImage == null )
+     				{
+		    			this.m_E_ServerSelectImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ServerButton/E_ServerSelect");
+     				}
+     				return this.m_E_ServerSelectImage;
+     			}
+     			else
+     			{
+		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ServerButton/E_ServerSelect");
+     			}
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_ServerUnSelectImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if (this.isCacheNode)
+     			{
+     				if( this.m_E_ServerUnSelectImage == null )
+     				{
+		    			this.m_E_ServerUnSelectImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ServerButton/E_ServerUnSelect");
+     				}
+     				return this.m_E_ServerUnSelectImage;
+     			}
+     			else
+     			{
+		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ServerButton/E_ServerUnSelect");
+     			}
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_ServerButtonButton = null;
 			this.m_E_ServerButtonImage = null;
 			this.m_E_ServerTextTextMeshProUGUI = null;
 			this.m_E_ServerStatusImage = null;
+			this.m_E_ServerCurrentTextTextMeshProUGUI = null;
+			this.m_E_ServerSelectImage = null;
+			this.m_E_ServerUnSelectImage = null;
 			this.uiTransform = null;
 			this.DataId = 0;
 		}
@@ -129,6 +204,9 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_ServerButtonImage = null;
 		private TMPro.TextMeshProUGUI m_E_ServerTextTextMeshProUGUI = null;
 		private UnityEngine.UI.Image m_E_ServerStatusImage = null;
+		private TMPro.TextMeshProUGUI m_E_ServerCurrentTextTextMeshProUGUI = null;
+		private UnityEngine.UI.Image m_E_ServerSelectImage = null;
+		private UnityEngine.UI.Image m_E_ServerUnSelectImage = null;
 		public Transform uiTransform = null;
 	}
 }

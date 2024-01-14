@@ -4,6 +4,7 @@ namespace ET.Client
 {
     [FriendOf(typeof(ServerInfosComponent))]
     [FriendOf(typeof(ServerInfo))]
+    [FriendOfAttribute(typeof(ET.Client.RoleInfosComponent))]
     public static class LoginHelper
     {
         /// <summary>
@@ -87,7 +88,7 @@ namespace ET.Client
             }
 
             //进入游戏
-            NetClient2Main_EnterGame response = await root.GetComponent<ClientSenderCompnent>().EnterGameAsync(serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].ServerZone,account,password);
+            NetClient2Main_EnterGame response = await root.GetComponent<ClientSenderCompnent>().EnterGameAsync(serverInfosComponent.ServerInfosList[serverInfosComponent.CurrentServerIndex].ServerZone, account, password);
 
             if (response.Error != ErrorCode.ERR_Success) //如果进入游戏失败，则返回错误码
             {
@@ -95,9 +96,41 @@ namespace ET.Client
                 return response.Error;
             }
 
-            root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
+            int errorCode = await GetRoleInfos(root);//获取角色信息
 
-            await EventSystem.Instance.PublishAsync(root, new LoginFinish());
+            if (errorCode != ErrorCode.ERR_Success)//如果获取角色失败，则返回错误码
+            {
+                Log.Error("response Error:" + response.Error);
+                return response.Error;
+            }
+
+            //await EventSystem.Instance.PublishAsync(root, new LoginFinish());
+
+            return ErrorCode.ERR_Success;
+        }
+
+        /// <summary>
+        /// 获取该账号在这个区服中所有的角色信息
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static async ETTask<int> GetRoleInfos(Scene root)
+        {
+            G2C_GateRoles response = (G2C_GateRoles)await root.GetComponent<ClientSenderCompnent>().Call(new C2G_GateRoles() { });
+
+            if (response.Error != ErrorCode.ERR_Success) //如果获取角色信息失败，则返回错误码
+            {
+                Log.Error("response Error:" + response.Error);
+                return response.Error;
+            }
+
+            RoleInfosComponent roleInfosComponent = root.GetComponent<RoleInfosComponent>();
+            roleInfosComponent.ClearRoleInfos();//清空所有角色信息
+
+            foreach (GetRoleInfoProto roleInfoProto in response.Roles)//添加所有角色信息
+            {
+                roleInfosComponent.AddRoleInfo(roleInfoProto);
+            }
 
             return ErrorCode.ERR_Success;
         }

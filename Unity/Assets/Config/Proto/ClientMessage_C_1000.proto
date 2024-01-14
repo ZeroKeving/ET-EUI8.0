@@ -74,6 +74,4 @@ message NetClient2Main_EnterGame // IResponse
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
-	
-	int64 PlayerId = 4;
 }

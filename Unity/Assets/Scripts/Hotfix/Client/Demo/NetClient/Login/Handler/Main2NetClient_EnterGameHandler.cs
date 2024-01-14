@@ -80,6 +80,5 @@ public class Main2NetClient_EnterGameHandler : MessageHandler<Scene, Main2NetCli
 
         Log.Debug("登陆gate网关服务器成功!");
 
-        response.PlayerId = g2CLoginGate.PlayerId;
     }
 }

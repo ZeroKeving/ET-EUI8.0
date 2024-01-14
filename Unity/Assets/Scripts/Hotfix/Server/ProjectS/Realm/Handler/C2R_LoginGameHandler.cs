@@ -123,7 +123,7 @@ public class C2R_LoginGameHandler: MessageSessionHandler<C2R_LoginGame, R2C_Logi
                 continue;
             }
             
-            response.ServerListInfosProto.Add(new ServerListInfoProto(){ Zone = startZoneConfig.Id,Name = startZoneConfig.Name,Status = RandomGenerator.RandomNumber(0,2)});
+            response.ServerListInfosProto.Add(new ServerListInfoProto(){ Zone = startZoneConfig.Id,Status = RandomGenerator.RandomNumber(0,2)});
         }
 
         RealmTokenComponent realmTokenComponent = session.Root().GetComponent<RealmTokenComponent>();

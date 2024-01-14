@@ -1,7 +1,7 @@
 {"dict": [
-[1, {"_t":"StartZoneConfig","_id":1,"Name":"国服","ZoneTpye":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET1"}],
-[2, {"_t":"StartZoneConfig","_id":2,"Name":"美服","ZoneTpye":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET2"}],
-[100, {"_t":"StartZoneConfig","_id":100,"Name":"Zone100","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET100"}],
-[200, {"_t":"StartZoneConfig","_id":200,"Name":"Zone200","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET200"}],
-[300, {"_t":"StartZoneConfig","_id":300,"Name":"Zone300","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET300"}],
+[1, {"_t":"StartZoneConfig","_id":1,"Name_CN":"希望之光","Name_EN":"Light of Hope","ZoneTpye":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET1"}],
+[2, {"_t":"StartZoneConfig","_id":2,"Name_CN":"暗夜荣耀","Name_EN":"Dark glory","ZoneTpye":1,"DBConnection":"mongodb://127.0.0.1","DBName":"ET2"}],
+[100, {"_t":"StartZoneConfig","_id":100,"Name_CN":"Zone100","Name_EN":"Zone100","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET100"}],
+[200, {"_t":"StartZoneConfig","_id":200,"Name_CN":"Zone200","Name_EN":"Zone200","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET200"}],
+[300, {"_t":"StartZoneConfig","_id":300,"Name_CN":"Zone300","Name_EN":"Zone300","ZoneTpye":2,"DBConnection":"mongodb://127.0.0.1","DBName":"ET300"}],
 ]}

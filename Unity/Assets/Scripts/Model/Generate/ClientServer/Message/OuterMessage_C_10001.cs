@@ -982,9 +982,6 @@ namespace ET
 		[MemoryPackOrder(0)]
 		public int Zone { get; set; }
 
-		[MemoryPackOrder(1)]
-		public string Name { get; set; }
-
 		[MemoryPackOrder(2)]
 		public int Status { get; set; }
 
@@ -992,7 +989,6 @@ namespace ET
 		{
 			if (!this.IsFromPool) return;
 			this.Zone = default;
-			this.Name = default;
 			this.Status = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -1264,16 +1260,12 @@ namespace ET
 		[MemoryPackOrder(2)]
 		public string Message { get; set; }
 
-		[MemoryPackOrder(3)]
-		public long PlayerId { get; set; }
-
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
-			this.PlayerId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1296,6 +1288,93 @@ namespace ET
 		{
 			if (!this.IsFromPool) return;
 			this.Error = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.GetRoleInfoProto)]
+	[MemoryPackable]
+	public partial class GetRoleInfoProto: MessageObject
+	{
+		public static GetRoleInfoProto Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(GetRoleInfoProto), isFromPool) as GetRoleInfoProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int Level { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.UnitId = default;
+			this.Name = default;
+			this.Level = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(G2C_GateRoles))]
+	[Message(OuterMessage.C2G_GateRoles)]
+	[MemoryPackable]
+	public partial class C2G_GateRoles: MessageObject, ISessionRequest
+	{
+		public static C2G_GateRoles Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2G_GateRoles), isFromPool) as C2G_GateRoles; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.G2C_GateRoles)]
+	[MemoryPackable]
+	public partial class G2C_GateRoles: MessageObject, ISessionResponse
+	{
+		public static G2C_GateRoles Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(G2C_GateRoles), isFromPool) as G2C_GateRoles; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(3)]
+		public List<GetRoleInfoProto> Roles { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.Roles.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1348,5 +1427,8 @@ namespace ET
 		 public const ushort C2G_LoginGameGate = 10043;
 		 public const ushort G2C_LoginGameGate = 10044;
 		 public const ushort ALL2C_Disconnect = 10045;
+		 public const ushort GetRoleInfoProto = 10046;
+		 public const ushort C2G_GateRoles = 10047;
+		 public const ushort G2C_GateRoles = 10048;
 	}
 }

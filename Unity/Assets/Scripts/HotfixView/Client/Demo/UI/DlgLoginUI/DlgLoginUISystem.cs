@@ -36,6 +36,7 @@ namespace ET.Client
             self.View.E_LoginPasswordTMP_InputField.text = PlayerPrefs.GetString("Password", string.Empty);
             
             self.Refresh();
+            self.View.EG_LoginPanelRectTransform.SetVisible(true); // 显示登录页面
             self.View.EG_RegisterRectTransform.SetVisible(false); //隐藏注册界面
         }
 
@@ -46,14 +47,14 @@ namespace ET.Client
         {
             //显示文本内容
             // 登录
-            self.View.E_LoginTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[10]);
-            self.View.E_CutRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[4]);
+            self.View.E_LoginTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000010]);
+            self.View.E_CutRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000005]);
             // 注册
-            self.View.E_RegisterAccountPlaceholderTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[9]);
-            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[7]);
-            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[8]);
-            self.View.E_StartRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[5]);
-            self.View.E_BackLoginButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[11]);
+            self.View.E_RegisterAccountPlaceholderTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000009]);
+            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000007]);
+            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000008]);
+            self.View.E_StartRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000004]);
+            self.View.E_BackLoginButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000011]);
             
         }
 
@@ -75,7 +76,7 @@ namespace ET.Client
             else
             {
                 self.View.E_LoginButtonButton.interactable = true;
-                self.View.E_LoginTextTextMeshProUGUI.color = new Color(1, 246f / 255f, 229f / 255f, 1);
+                self.View.E_LoginTextTextMeshProUGUI.color = new Color(21f / 255f, 27f /255f, 40f /255f, 1);
             }
 
             // 判断用户账号密码格式是否输入正确，两遍密码是否相同
@@ -174,8 +175,6 @@ namespace ET.Client
         {
             self.View.EG_RegisterRectTransform.SetVisible(true); //显示注册界面
             self.View.EG_LoginPanelRectTransform.SetVisible(false); //隐藏登录界面
-            self.View.E_CutLoginButtonButton.SetVisible(true); //显示切换登录按钮
-            self.View.E_CutRegisterButtonButton.SetVisible(false); //隐藏切换注册按钮
         }
 
         /// <summary>
@@ -186,8 +185,6 @@ namespace ET.Client
         {
             self.View.EG_LoginPanelRectTransform.SetVisible(true); //显示登录界面
             self.View.EG_RegisterRectTransform.SetVisible(false); //隐藏注册界面
-            self.View.E_CutRegisterButtonButton.SetVisible(true); //显示切换注册按钮
-            self.View.E_CutLoginButtonButton.SetVisible(false); //隐藏切换登录按钮
         }
     }
 }

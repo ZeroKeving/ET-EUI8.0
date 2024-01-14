@@ -16,6 +16,5 @@ public enum ServerStatus
 public class ServerInfo : Entity,IAwake
 {
     public int ServerZone;//区服id
-    public string ServerName;//区服名字
     public int Status;//区服状态
 }

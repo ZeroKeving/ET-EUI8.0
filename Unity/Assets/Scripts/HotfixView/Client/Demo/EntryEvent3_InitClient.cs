@@ -23,6 +23,7 @@ namespace ET.Client
             
             root.AddComponent<MultilingualComponent>();//添加多语言组件
             root.AddComponent<ServerInfosComponent>();//添加游戏区服信息组件
+            root.AddComponent<RoleInfosComponent>();//添加角色信息组件
             
             // 根据配置修改掉Main Fiber的SceneType
             SceneType sceneType = EnumHelper.FromString<SceneType>(globalComponent.GlobalConfig.AppType.ToString());

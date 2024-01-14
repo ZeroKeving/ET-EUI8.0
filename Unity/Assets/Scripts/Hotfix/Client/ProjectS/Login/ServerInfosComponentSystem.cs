@@ -36,7 +36,6 @@ public static partial class ServerInfosComponentSystem
     {
         ServerInfo serverInfo = self.AddChild<ServerInfo>();
         serverInfo.ServerZone = serverListInfo.Zone;
-        serverInfo.ServerName = serverListInfo.Name;
         serverInfo.Status = serverListInfo.Status;
         self.ServerInfosList.Add(serverInfo);
     }

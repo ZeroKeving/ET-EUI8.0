@@ -47,7 +47,7 @@ namespace ET.Client
             self.TweenLoading.Append(DOTween.To(() => currentValue, x =>
                 {
                     self.View.E_Progress_BarSlider.value = x;
-                    self.View.E_Loading_ProgressTextMeshProUGUI.SetText("正在加载资源: " + self.ProgressValue.ToString("0") + "%");
+                    self.View.E_Loading_ProgressTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000015] + ":" + self.ProgressValue.ToString("0") + "%");
                 }, self.ProgressValue, 1.5f).SetEase(Ease.InOutQuad).SetUpdate(true)); //加载1.5秒时间，缓动，不受Time.Scale影响
 
             self.TweenLoading.OnComplete(() =>
