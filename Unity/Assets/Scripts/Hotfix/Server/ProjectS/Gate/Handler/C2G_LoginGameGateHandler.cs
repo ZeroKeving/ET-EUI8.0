@@ -49,12 +49,12 @@ public class C2G_LoginGameGateHandler: MessageSessionHandler<C2G_LoginGameGate, 
                 if (list.Count == 0) //新账号
                 {
                     gateUser = gateUserMgrComponent.Create(account, loginGateInfoProto.Zone);
-                    await gateUser.AddLocation(LocationType.Player); //通知Loaction定位服务器，告知当前实体所在的具体位置
+                    //await gateUser.AddLocation(LocationType.Player); //通知Loaction定位服务器，告知当前实体所在的具体位置
                 }
                 else //老账号
                 {
                     gateUser = gateUserMgrComponent.Create(list[0]);
-                    await gateUser.AddLocation(LocationType.Player); //通知Loaction定位服务器，告知当前实体所在的具体位置
+                    //await gateUser.AddLocation(LocationType.Player); //通知Loaction定位服务器，告知当前实体所在的具体位置
                 }
 
                 long id = gateUser.GetComponent<AccountZoneDB>().Id; //获取账号区服数据的id

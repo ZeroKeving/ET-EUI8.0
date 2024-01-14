@@ -125,9 +125,11 @@ public class C2R_LoginGameHandler: MessageSessionHandler<C2R_LoginGame, R2C_Logi
             
             response.ServerListInfosProto.Add(new ServerListInfoProto(){ Zone = startZoneConfig.Id,Name = startZoneConfig.Name,Status = RandomGenerator.RandomNumber(0,2)});
         }
-                
+
+        RealmTokenComponent realmTokenComponent = session.Root().GetComponent<RealmTokenComponent>();
         string Token = TimeInfo.Instance.ServerNow().ToString() + RandomGenerator.RandInt64();//随机生成一个令牌
-        session.Root().GetComponent<RealmTokenComponent>().Add(request.Account, Token);//在Gate网关钥匙组件上添加该账号,等待20秒后移除该账号的登录钥匙
+        realmTokenComponent.Remove(request.Account);//移除该账号上一次登录的令牌
+        realmTokenComponent.Add(request.Account, Token);//在Gate网关钥匙组件上添加该账号,等待20秒后移除该账号的登录钥匙
         response.Token = Token;
         
         session.Disconnect().Coroutine(); //延迟1秒后断开连接
