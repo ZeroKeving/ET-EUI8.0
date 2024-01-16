@@ -43,4 +43,33 @@ public static partial class RoleInfosComponentSystem
         roleInfo.Level = roleInfoProto.Level;
         self.RoleInfos.Add(roleInfo);
     }
+
+    /// <summary>
+    /// 通过索引获取角色信息
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public static RoleInfo GetRoleInfoByIndex(this RoleInfosComponent self,int index)
+    {
+        if (index < 0 || index >= self.RoleInfos.Count)
+        {
+            return null;
+        }
+
+        return self.RoleInfos[index];
+    }
+
+    /// <summary>
+    /// 删除游戏角色信息
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="roleId"></param>
+    public static void DeleteRoleInfoById(this RoleInfosComponent self,long roleId)
+    {
+        int index = self.RoleInfos.FindIndex((RoleInfo) => { return RoleInfo.Id == roleId; });
+        
+        self.RoleInfos.RemoveAt(index);
+    }
+    
 }

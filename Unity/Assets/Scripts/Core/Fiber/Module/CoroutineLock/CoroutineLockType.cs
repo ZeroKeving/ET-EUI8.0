@@ -17,6 +17,7 @@ namespace ET
         public const int RegisterAccount = 11;//注册账号的协程锁类型
         public const int LoginZone = 12;//登录区服的协程锁类型
         public const int GateUserLock = 13;//Gate用户的协程锁类型
+        public const int CheckName = 14;//查重角色名称的协程锁类型
 
         public const int Max = 100; // 这个必须最大
     }

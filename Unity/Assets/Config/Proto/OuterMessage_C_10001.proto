@@ -338,3 +338,35 @@ message G2C_GateRoles // ISessionResponse
 
 	repeated GetRoleInfoProto Roles = 4;//游戏角色列表
 }
+
+//ResponseType G2C_CreateRole
+message C2G_CreateRole // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Name = 2;//角色名称
+}
+
+message G2C_CreateRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	GetRoleInfoProto Role = 4;//创建好的角色信息
+}
+
+//ResponseType G2C_DeleteRole
+message C2G_DeleteRole // ISessionRequest
+{
+	int32 RpcId = 1;
+	int64 RoleId = 2;//角色id
+}
+
+message G2C_DeleteRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	int64 RoleId = 4;//所删除角色id
+}

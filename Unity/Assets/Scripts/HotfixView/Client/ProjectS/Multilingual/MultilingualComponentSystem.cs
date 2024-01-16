@@ -48,10 +48,12 @@ public static partial class MultilingualComponentSystem
         {
             case MultilingualType.CN://中文
                 UIMultilingualConfigCategory.Instance.Set_CN();
+                HintMultilingualConfigCategory.Instance.Set_CN();
                 StartZoneConfigCategory.Instance.Set_CN();
                 break;
             case MultilingualType.EN://英文
                 UIMultilingualConfigCategory.Instance.Set_EN();
+                HintMultilingualConfigCategory.Instance.Set_EN();
                 StartZoneConfigCategory.Instance.Set_EN();
                 break;
             default:

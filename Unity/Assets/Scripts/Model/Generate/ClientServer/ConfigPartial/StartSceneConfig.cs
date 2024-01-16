@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 
@@ -75,6 +76,26 @@ namespace ET
                 }
             }
         }
+
+        /// <summary>
+        /// 获取场景的id
+        /// </summary>
+        /// <param name="zone"></param>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        public ActorId GetSceneActorId(int zone,string sceneName)
+        {
+            try
+            {
+                StartSceneConfig startSceneConfig = Instance.GetBySceneName(zone, sceneName);
+                return startSceneConfig.ActorId;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"not found scene: {zone} {sceneName}",e);
+            }
+        }
+        
     }
     
     public partial class StartSceneConfig

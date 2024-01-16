@@ -38,6 +38,14 @@ namespace ET
         public const int ERR_Gate_NotLoginGateInfo = 200020;//未找到登录Gate信息
         public const int ERR_Gate_NoGateUser = 200021;//未找到登录Gate用户
         public const int ERR_Gate_NoAccountZoneDB = 200022;//未找到区服账号信息
+        public const int ERR_Gate_RoleNameFormError = 200023;//创建的角色名称格式错误(Gate网关服务器)
+        
+        public const int ERR_Name_RoleNameFormError = 200024;//创建的角色名称格式错误（Name名字查重服务器）
+        public const int ERR_Name_RoleNameRepeated = 200025;//创建的角色名称重复
+        
+        public const int ERR_Gate_RoleMax = 200026;//已达可创建的最大角色上限
+        public const int ERR_Gate_NoRole = 200027;//未找到需要删除的角色
+        public const int ERR_Gate_NoRoleDB = 200027;//未找到需要删除的角色数据
         
         //300000以上为提示码
         public const int Hint_Login_MultiLogin = 300001;//被顶号了（您的账号被顶下线了）

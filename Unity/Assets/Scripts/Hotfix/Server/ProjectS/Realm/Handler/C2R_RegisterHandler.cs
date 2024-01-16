@@ -15,7 +15,7 @@ public class C2R_RegisterHandler: MessageSessionHandler<C2R_Register, R2C_Regist
     {
         session.RemoveComponent<SessionAcceptTimeoutComponent>(); //移除连接5秒超时组件（代表连接通过了验证，如果没有通过验证该组件5秒后会断开连接）
 
-        int modCount = Math.Abs(request.Account.GetHashCode() % StartSceneConfigCategory.Instance.Realms.Count); //对账号哈希值取模的绝对值
+        int modCount = request.Account.Mode(StartSceneConfigCategory.Instance.Realms.Count); //对账号哈希值取模
 
         if (session.Root().Id != StartSceneConfigCategory.Instance.Realms[modCount].Id) //该账号是否登录到正确的Realm服务器
         {

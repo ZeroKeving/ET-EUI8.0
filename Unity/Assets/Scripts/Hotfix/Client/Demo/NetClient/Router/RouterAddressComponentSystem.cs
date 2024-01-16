@@ -83,7 +83,7 @@ namespace ET.Client
         /// <returns></returns>
         public static IPEndPoint GetRealmAddress(this RouterAddressComponent self, string account)
         {
-            int modCount = Math.Abs(account.GetHashCode() % self.Info.Realms.Count);//根据账号哈希值取模的绝对值
+            int modCount = account.Mode(self.Info.Realms.Count);//根据账号哈希值取模
             string address = self.Info.Realms[modCount];
             string[] ss = address.Split(':');
             IPAddress ipAddress = IPAddress.Parse(ss[0]);

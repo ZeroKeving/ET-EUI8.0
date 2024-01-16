@@ -28,7 +28,7 @@ namespace ET.Client
             self.ProgressValue = 0;
             self.View.E_Progress_BarSlider.value = self.ProgressValue;
             self.TweenLoading.Kill(true); //初始化Tween队列
-            self.View.E_Loading_ProgressTextMeshProUGUI.SetText("正在加载资源: " + self.ProgressValue.ToString("0") + "%");
+            self.View.E_Loading_ProgressTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000015] + self.ProgressValue.ToString("0") + "%");
             
             self.StartProgressAnimation().Coroutine();//开始加载进度条动画
         }

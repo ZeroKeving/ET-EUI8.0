@@ -16,8 +16,9 @@ namespace ET.Client
 		WindowID_Await,//加载等待弹窗
 		WindowID_LoadResourceAndLogin,//加载资源界面
 		WindowID_StartGameUI,//开始游戏界面
-		WindowID_ErrorWindow,
+		WindowID_StrongPopUpWindow, // 强提醒弹窗
 		WindowID_SetUI,
 		WindowID_CreateRole,
+		WindowID_Toast, // 弱提醒弹窗 Toast
 	}
 }

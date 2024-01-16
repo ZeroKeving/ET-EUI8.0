@@ -51,7 +51,7 @@ namespace ET.Client
             self.View.E_CutRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000005]);
             // 注册
             self.View.E_RegisterAccountPlaceholderTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000009]);
-            self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000007]);
+            self.View.E_RegisterPasswordPlaceholderTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000007]);
             self.View.E_RegisterPasswordPlaceholder2TextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000008]);
             self.View.E_StartRegisterButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000004]);
             self.View.E_BackLoginButtonTextTextMeshProUGUI.SetText(UIMultilingualConfigCategory.Instance.TextDict[1000011]);
@@ -115,7 +115,7 @@ namespace ET.Client
 
                 if (errorCode != ErrorCode.ERR_Success) //如果获取的不是一个成功的错误码
                 {
-                    UIPopUpHelper.CreateErrorWindow(self.Root(), errorCode); //创建错误弹窗
+                    UIPopUpHelper.CreatePopUpWindow(self.Root(), errorCode); //创建错误弹窗
                     return;
                 }
 
@@ -150,7 +150,7 @@ namespace ET.Client
 
                 if (errorCode != ErrorCode.ERR_Success) //如果获取的不是一个成功的错误码
                 {
-                    UIPopUpHelper.CreateErrorWindow(self.Root(), errorCode); //创建错误弹窗
+                    UIPopUpHelper.CreatePopUpWindow(self.Root(), errorCode); //创建错误弹窗
                     return;
                 }
 

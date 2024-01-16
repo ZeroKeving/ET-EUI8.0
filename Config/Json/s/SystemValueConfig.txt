@@ -1,2 +1,3 @@
 {"dict": [
+[2, {"_t":"SystemValueConfig","_id":2,"Name":"MaxRoleInfoCreate","Value":[1]}],
 ]}

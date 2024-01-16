@@ -821,6 +821,67 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(Name2G_CheckName))]
+	[Message(InnerMessage.G2Name_CheckName)]
+	[MemoryPackable]
+	public partial class G2Name_CheckName: MessageObject, IRequest
+	{
+		public static G2Name_CheckName Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(G2Name_CheckName), isFromPool) as G2Name_CheckName; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long UnitId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Name = default;
+			this.UnitId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Name2G_CheckName)]
+	[MemoryPackable]
+	public partial class Name2G_CheckName: MessageObject, IResponse
+	{
+		public static Name2G_CheckName Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(Name2G_CheckName), isFromPool) as Name2G_CheckName; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class InnerMessage
 	{
 		 public const ushort ObjectQueryRequest = 20002;
@@ -849,5 +910,7 @@ namespace ET
 		 public const ushort LoginGateInfoProto = 20025;
 		 public const ushort R2G_GetLoginGameKey = 20026;
 		 public const ushort G2R_GetLoginGameKey = 20027;
+		 public const ushort G2Name_CheckName = 20028;
+		 public const ushort Name2G_CheckName = 20029;
 	}
 }

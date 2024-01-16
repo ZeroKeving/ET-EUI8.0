@@ -7,6 +7,23 @@ namespace ET.Client
 	[EnableMethod]
 	public  class DlgStartGameUIViewComponent : Entity,IAwake,IDestroy 
 	{
+		public UnityEngine.RectTransform EG_ContentRectTransform
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_EG_ContentRectTransform == null )
+     			{
+		    		this.m_EG_ContentRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EG_Content");
+     			}
+     			return this.m_EG_ContentRectTransform;
+     		}
+     	}
+
 		public UnityEngine.UI.Button E_StartGameButtonButton
      	{
      		get
@@ -18,7 +35,7 @@ namespace ET.Client
      			}
      			if( this.m_E_StartGameButtonButton == null )
      			{
-		    		this.m_E_StartGameButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_StartGameButton");
+		    		this.m_E_StartGameButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton");
      			}
      			return this.m_E_StartGameButtonButton;
      		}
@@ -35,7 +52,7 @@ namespace ET.Client
      			}
      			if( this.m_E_StartGameButtonImage == null )
      			{
-		    		this.m_E_StartGameButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_StartGameButton");
+		    		this.m_E_StartGameButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton");
      			}
      			return this.m_E_StartGameButtonImage;
      		}
@@ -52,7 +69,7 @@ namespace ET.Client
      			}
      			if( this.m_E_StartGameTextTextMeshProUGUI == null )
      			{
-		    		this.m_E_StartGameTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_StartGameButton/E_StartGameText");
+		    		this.m_E_StartGameTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/E_StartGameText");
      			}
      			return this.m_E_StartGameTextTextMeshProUGUI;
      		}
@@ -69,7 +86,7 @@ namespace ET.Client
      			}
      			if( this.m_E_ServerChangeButtonButton == null )
      			{
-		    		this.m_E_ServerChangeButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_StartGameButton/E_ServerChangeButton");
+		    		this.m_E_ServerChangeButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/E_ServerChangeButton");
      			}
      			return this.m_E_ServerChangeButtonButton;
      		}
@@ -86,7 +103,7 @@ namespace ET.Client
      			}
      			if( this.m_E_ServerChangeButtonImage == null )
      			{
-		    		this.m_E_ServerChangeButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_StartGameButton/E_ServerChangeButton");
+		    		this.m_E_ServerChangeButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/E_ServerChangeButton");
      			}
      			return this.m_E_ServerChangeButtonImage;
      		}
@@ -103,13 +120,13 @@ namespace ET.Client
      			}
      			if( this.m_E_ServerChangeTextTextMeshProUGUI == null )
      			{
-		    		this.m_E_ServerChangeTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_StartGameButton/E_ServerChangeButton/E_ServerChangeText");
+		    		this.m_E_ServerChangeTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/E_ServerChangeButton/E_ServerChangeText");
      			}
      			return this.m_E_ServerChangeTextTextMeshProUGUI;
      		}
      	}
 
-		public TMPro.TextMeshProUGUI E_ServerInfoTextTextMeshProUGUI
+		public UnityEngine.RectTransform EG_ServerRectTransform
      	{
      		get
      		{
@@ -118,11 +135,11 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_ServerInfoTextTextMeshProUGUI == null )
+     			if( this.m_EG_ServerRectTransform == null )
      			{
-		    		this.m_E_ServerInfoTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"E_StartGameButton/E_ServerInfoText");
+		    		this.m_EG_ServerRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/EG_Server");
      			}
-     			return this.m_E_ServerInfoTextTextMeshProUGUI;
+     			return this.m_EG_ServerRectTransform;
      		}
      	}
 
@@ -137,9 +154,26 @@ namespace ET.Client
      			}
      			if( this.m_E_ServerStatusImage == null )
      			{
-		    		this.m_E_ServerStatusImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_StartGameButton/E_ServerStatus");
+		    		this.m_E_ServerStatusImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/EG_Server/GameObject/E_ServerStatus");
      			}
      			return this.m_E_ServerStatusImage;
+     		}
+     	}
+
+		public TMPro.TextMeshProUGUI E_ServerInfoTextTextMeshProUGUI
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_ServerInfoTextTextMeshProUGUI == null )
+     			{
+		    		this.m_E_ServerInfoTextTextMeshProUGUI = UIFindHelper.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"EG_Content/E_StartGameButton/EG_Server/E_ServerInfoText");
+     			}
+     			return this.m_E_ServerInfoTextTextMeshProUGUI;
      		}
      	}
 
@@ -154,7 +188,7 @@ namespace ET.Client
      			}
      			if( this.m_E_AccountButtonButton == null )
      			{
-		    		this.m_E_AccountButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_AccountButton");
+		    		this.m_E_AccountButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Content/E_AccountButton");
      			}
      			return this.m_E_AccountButtonButton;
      		}
@@ -171,7 +205,7 @@ namespace ET.Client
      			}
      			if( this.m_E_AccountButtonImage == null )
      			{
-		    		this.m_E_AccountButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_AccountButton");
+		    		this.m_E_AccountButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Content/E_AccountButton");
      			}
      			return this.m_E_AccountButtonImage;
      		}
@@ -188,7 +222,7 @@ namespace ET.Client
      			}
      			if( this.m_E_SetButtonButton == null )
      			{
-		    		this.m_E_SetButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_SetButton");
+		    		this.m_E_SetButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EG_Content/E_SetButton");
      			}
      			return this.m_E_SetButtonButton;
      		}
@@ -205,7 +239,7 @@ namespace ET.Client
      			}
      			if( this.m_E_SetButtonImage == null )
      			{
-		    		this.m_E_SetButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_SetButton");
+		    		this.m_E_SetButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EG_Content/E_SetButton");
      			}
      			return this.m_E_SetButtonImage;
      		}
@@ -298,14 +332,16 @@ namespace ET.Client
 
 		public void DestroyWidget()
 		{
+			this.m_EG_ContentRectTransform = null;
 			this.m_E_StartGameButtonButton = null;
 			this.m_E_StartGameButtonImage = null;
 			this.m_E_StartGameTextTextMeshProUGUI = null;
 			this.m_E_ServerChangeButtonButton = null;
 			this.m_E_ServerChangeButtonImage = null;
 			this.m_E_ServerChangeTextTextMeshProUGUI = null;
-			this.m_E_ServerInfoTextTextMeshProUGUI = null;
+			this.m_EG_ServerRectTransform = null;
 			this.m_E_ServerStatusImage = null;
+			this.m_E_ServerInfoTextTextMeshProUGUI = null;
 			this.m_E_AccountButtonButton = null;
 			this.m_E_AccountButtonImage = null;
 			this.m_E_SetButtonButton = null;
@@ -318,14 +354,16 @@ namespace ET.Client
 			this.uiTransform = null;
 		}
 
+		private UnityEngine.RectTransform m_EG_ContentRectTransform = null;
 		private UnityEngine.UI.Button m_E_StartGameButtonButton = null;
 		private UnityEngine.UI.Image m_E_StartGameButtonImage = null;
 		private TMPro.TextMeshProUGUI m_E_StartGameTextTextMeshProUGUI = null;
 		private UnityEngine.UI.Button m_E_ServerChangeButtonButton = null;
 		private UnityEngine.UI.Image m_E_ServerChangeButtonImage = null;
 		private TMPro.TextMeshProUGUI m_E_ServerChangeTextTextMeshProUGUI = null;
-		private TMPro.TextMeshProUGUI m_E_ServerInfoTextTextMeshProUGUI = null;
+		private UnityEngine.RectTransform m_EG_ServerRectTransform = null;
 		private UnityEngine.UI.Image m_E_ServerStatusImage = null;
+		private TMPro.TextMeshProUGUI m_E_ServerInfoTextTextMeshProUGUI = null;
 		private UnityEngine.UI.Button m_E_AccountButtonButton = null;
 		private UnityEngine.UI.Image m_E_AccountButtonImage = null;
 		private UnityEngine.UI.Button m_E_SetButtonButton = null;

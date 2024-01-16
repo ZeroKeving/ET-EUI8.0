@@ -199,3 +199,18 @@ message G2R_GetLoginGameKey // IResponse
 	int64 Key = 4;
 	int64 GateId = 5;
 }
+
+//ResponseType Name2G_CheckName
+message G2Name_CheckName // IRequest
+{
+	int32 RpcId = 1;
+	string Name = 2;//角色名称
+	int64 UnitId = 2;//角色id
+}
+
+message Name2G_CheckName // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}

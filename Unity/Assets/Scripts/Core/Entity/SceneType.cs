@@ -24,6 +24,8 @@ namespace ET
 		LockStepServer = 1 << 17,
 		RoomRoot = 1 << 18,
 		Watcher = 1 << 19,
+		
+		Name = 1 << 20,//角色名称查重服
 
 		// 客户端
 		Demo = 1 << 30,

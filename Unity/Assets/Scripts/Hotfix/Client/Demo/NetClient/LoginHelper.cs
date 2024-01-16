@@ -134,5 +134,47 @@ namespace ET.Client
 
             return ErrorCode.ERR_Success;
         }
+
+        /// <summary>
+        /// 创建角色
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static async ETTask<int> CreateRole(Scene root,string name)
+        {
+            G2C_CreateRole response = (G2C_CreateRole)await root.GetComponent<ClientSenderCompnent>().Call(new C2G_CreateRole() { Name = name});
+
+            if (response.Error != ErrorCode.ERR_Success) //返回错误码
+            {
+                Log.Error("response Error:" + response.Error);
+                return response.Error;
+            }
+
+            root.GetComponent<RoleInfosComponent>().AddRoleInfo(response.Role);//将新建的角色添加到角色信息组件中
+            
+            return ErrorCode.ERR_Success;
+        }
+
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public static async ETTask<int> DeleteRole(Scene root,long roleId)
+        {
+            G2C_DeleteRole response = (G2C_DeleteRole)await root.GetComponent<ClientSenderCompnent>().Call(new C2G_DeleteRole() { RoleId = roleId});
+
+            if (response.Error != ErrorCode.ERR_Success) //返回错误码
+            {
+                Log.Error("response Error:" + response.Error);
+                return response.Error;
+            }
+            
+            root.GetComponent<RoleInfosComponent>().DeleteRoleInfoById(response.RoleId);//将删除的角色移出角色信息组件中
+            
+            return ErrorCode.ERR_Success;
+        }
     }
 }

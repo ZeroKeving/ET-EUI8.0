@@ -14,6 +14,4 @@
 [1000013, {"_t":"UIMultilingualConfig","_id":1000013,"CN":"选择服务器","EN":"Select Server"}],
 [1000014, {"_t":"UIMultilingualConfig","_id":1000014,"CN":"当前选择","EN":"Current Selection"}],
 [1000015, {"_t":"UIMultilingualConfig","_id":1000015,"CN":"正在加载资源","EN":"Loading resources"}],
-[1010001, {"_t":"UIMultilingualConfig","_id":1010001,"CN":"亚洲","EN":"Asia"}],
-[1010002, {"_t":"UIMultilingualConfig","_id":1010002,"CN":"美国","EN":"America"}],
 ]}

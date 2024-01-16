@@ -11,4 +11,6 @@ public class RoleInfoDB : Entity,IAwake,IDestroy
     public bool IsDeleted;//当前角色是否有被删除掉
     public string Name;//角色名称
     public int Level;//角色等级
+    public int LogicZone;//逻辑区
+    public long CreateTime;//角色创建时间
 }
